@@ -93,6 +93,10 @@ require("lazy").setup({
             return vim.fn.executable 'make' == 1
         end,
     },
+
+    -- Harpoon
+    'theprimeagen/harpoon',
+
     'nvim-lualine/lualine.nvim',
     -- If you want to have icons in your statusline choose one of these
     'kyazdani42/nvim-web-devicons',
