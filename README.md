@@ -1,0 +1,4 @@
+vimwiki
+lsp
+telescope
+

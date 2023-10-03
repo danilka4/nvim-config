@@ -1,0 +1,480 @@
+snippet art "article template" b
+\\documentclass[12pt, letterpaper, twoside]{article}
+\\usepackage[letterpaper,top=1in,bottom=1in,left=1in,right=1in,marginparwidth=5cm]{geometry}
+
+\\usepackage[utf8]{inputenc}
+\\usepackage{times}
+
+\\usepackage{setspace}
+\\doublespacing
+
+% Bibliography stuff
+\\usepackage[american]{babel}
+\\usepackage[autostyle]{csquotes}
+\\usepackage{hyperref}
+
+\\usepackage[
+	style=authoryear-ibid,
+	backend=biber,
+	hyperref=true
+]{biblatex}
+\\bibliography{$HOME/Documents/latex/sources}
+
+\\title{$1}
+\\author{Daniel Palamarchuk}
+\\date{$2}
+
+\\begin{document}
+\\maketitle
+\\newpage
+
+${0:body}
+
+\\newpage
+\\printbibliography
+
+\\end{document}
+endsnippet
+
+snippet reaction "5554 reaction" b
+\\documentclass[12pt, letterpaper, twoside]{article}
+\\usepackage[letterpaper,top=1in,bottom=1in,left=1in,right=1in,marginparwidth=5cm]{geometry}
+
+\\usepackage[utf8]{inputenc}
+\\usepackage{times}
+
+% Bibliography stuff
+\\usepackage[american]{babel}
+\\usepackage[autostyle]{csquotes}
+\\usepackage{hyperref}
+
+\\usepackage[
+	style=authoryear-ibid,
+	backend=biber,
+	hyperref=true
+]{biblatex}
+\\bibliography{$HOME/Documents/latex/sources}
+
+\\makeatletter         
+\\renewcommand\maketitle{
+{
+\\raggedright
+{Daniel Palamarchuk}\\\\
+{Week $1 Reaction}\\\\
+{$2/$3/$4}}}
+\\makeatother
+
+\\begin{document}
+\\maketitle
+
+${0:body}
+
+\\begin{enumerate}
+	\\item 
+	\\item 
+	\\item 
+\\end{enumerate}
+
+\\printbibliography
+
+\\end{document}
+endsnippet
+
+snippet cp "cite in parenthesis" A
+\\parencite[$1]{$2} $0
+endsnippet
+
+snippet ct "cite in text"
+\\textcite[$1]{$2} $0
+endsnippet
+
+snippet cf "cite in full"
+\\fullcite{$1}
+
+$0
+endsnippet
+
+snippet fr "fraction"
+\\frac{ $1 }{ $2 } $0
+endsnippet
+
+snippet linf "Limit approaches infinity" A
+\\lim_{n \\to \\infty} $0
+endsnippet
+
+snippet limit "Limit"
+\\lim_{$1 \\to $2} $0
+endsnippet
+
+snippet $ "Opens dollar maths" w
+\$ $1 \$ $0
+endsnippet
+
+snippet [ "Opens bracket maths" w
+\[ $0 \
+endsnippet
+
+snippet ( "Opens paren maths" w
+\( $0 \
+endsnippet
+
+snippet par "Big math parenthesis" w
+\left( $1 \right) $0
+endsnippet
+
+snippet log "Logarithm"
+\log($1)$0
+endsnippet
+
+snippet sqr "Square root" A
+\sqrt{$1} $0
+endsnippet
+
+snippet root "root" A
+\sqrt[$1]{$2} $0
+endsnippet
+
+snippet item "Itemize" b
+\begin{itemize}
+	\item $0
+\end{itemize}
+endsnippet
+
+snippet begin "begin{} / end{}" b
+\begin{${1:something}}
+	${0:${VISUAL}}
+\end{$1}
+endsnippet
+
+snippet ul "underline"
+\underline{$1} $0
+endsnippet
+
+snippet pack "use package"
+\usepackage{$0}
+endsnippet
+
+snippet bf "Bold" A
+\textbf{$1} $0
+endsnippet
+
+snippet it "Italics"
+\textit{$1} $0
+endsnippet
+
+snippet sum "Summation"
+\sum_{i = $1}^{$2} $0
+endsnippet
+
+snippet sec "Section"
+\section${1:*}{$2}
+
+$0
+endsnippet
+
+snippet sub "Subsection"
+\subsection{${1:${VISUAL:subsection name}}}
+
+$0
+endsnippet
+
+snippet ssub "Subsubsection"
+\subsubsection*{${1:${VISUAL:subsubsection name}}}
+
+$0
+endsnippet
+
+snippet minpy "Minted python section" b
+\\begin{minted}{python}
+$1
+\\end{minted}
+endsnippet
+
+snippet minin "Minted in-line"
+\mintinline{$1}{$2} $0
+endsnippet
+
+snippet list "Bulleted List" b
+\begin{itemize}
+	\item $0
+\end{itemize}
+endsnippet
+
+snippet & "tabular line" b
+$1 & $2 \\\\
+$0
+endsnippet
+
+snippet * "circle times"
+\cdot $0
+endsnippet
+
+snippet dots "dots" 
+\dots $0
+endsnippet
+
+snippet <= "Slanted le" 
+\leqslant $0
+endsnippet
+
+snippet >= "Slanted ge" 
+\geqslant $0
+endsnippet
+
+snippet Quest "Questions" b
+\\begin{questions}
+	\\question $1
+	\\begin{choices}
+		\\choice $2
+		\\choice $3
+		\\choice $4
+		\\choice $5
+\\end{choices}
+	
+	$0
+\\end{questions}
+endsnippet
+
+snippet quest "question" b
+\\question $1
+\\begin{choices}
+	\\choice $2
+	\\choice $3
+	\\choice $4
+	\\choice $5
+\\end{choices}
+	
+$0
+endsnippet
+
+snippet text "text function"
+\\text{$1} $0
+endsnippet
+
+snippet qtext "text function"
+\\quad \\text{$1} \\quad $0
+endsnippet
+
+snippet qarrow "spaced out arrow"
+\\quad\\rightarrow\\quad $0
+endsnippet
+
+snippet veps "variant epsilon" 
+\\varepsilon $0
+endsnippet
+
+snippet vphi "variant phi" 
+\\varphi $0
+endsnippet
+
+snippet quad "tab in math"
+\\quad $0
+endsnippet
+
+snippet below "creates underset"
+\\underset{${1:below}}{${2:above}}$0
+endsnippet
+
+snippet above "creates aboveset"
+\\overset{${1:above}}{${2:below}}$0
+endsnippet
+
+snippet over "creates line above" 
+\\overline{$1} $0
+endsnippet
+
+snippet graph "pgfplots graph" b
+\\begin{tikzpicture}
+	\\begin{axis}[
+		xmin = ${1:-5.2}, xmax = ${2:5.2},
+		ymin = ${3:-5.2}, ymax = ${4:5.2},
+		xtick=${5:{-5,-4,...,5}},
+		ytick=${6:{-5,-4,...,5}},
+		${7:grid = both,}
+		axis x line = center,
+		axis y line = center,
+		xlabel = {$x$},
+		ylabel = {$y$},
+		xlabel style = {below right},
+		ylabel style = {above left},
+	]
+	\\addplot[
+		smooth,
+		thick,
+		black
+	] {x};
+	\\node[circle,fill=white, inner sep = 1.2pt, draw] at (axis cs:0,0) {};
+	\\end{axis}
+\\end{tikzpicture}
+endsnippet
+
+snippet pm "plus minus" 
+\pm $0
+endsnippet
+
+snippet ^ "Power" 
+^ {$1} $0
+endsnippet
+
+snippet pi "pi" 
+\pi $0
+endsnippet
+
+snippet sin "sin" 
+\sin $0
+endsnippet
+
+snippet cos "cos" 
+\cos $0
+endsnippet
+
+snippet alpha "alpha" 
+\alpha $0
+endsnippet
+
+snippet beta "beta" 
+\beta $0
+endsnippet
+
+snippet ceneq "centered multi-line equation"
+
+\\begin{equation*}
+\\begin{gathered}
+    $0
+\\end{gathered}
+\\end{equation*}
+endsnippet
+
+snippet slide "Slide Show" b
+\\documentclass[12pt, letterpaper, twoside]{beamer}
+
+\\usepackage[utf8]{inputenc}
+\\usepackage{times}
+
+% Bibliography stuff
+\\usepackage[american]{babel}
+\\usepackage[autostyle]{csquotes}
+\\usepackage{hyperref}
+
+\\usepackage[
+	style=authoryear-ibid,
+	backend=biber,
+	hyperref=true
+]{biblatex}
+\\bibliography{$HOME/Documents/latex/sources}
+
+\\title{$1}
+\\author{Daniel Palamarchuk}
+\\date{$2}
+
+\\begin{document}
+\\maketitle
+\\newpage
+
+\\begin{frame}
+$0
+\\end{frame}
+
+\\newpage
+\\printbibliography
+
+\\end{document}
+
+endsnippet
+
+snippet art_py "Python Classwork" b
+\\documentclass[12pt]{scrartcl}
+\\usepackage[utf8]{inputenc}
+\\usepackage{minted}   % For syntax-highlighted code snippets
+\\usepackage{amsmath}  % For math and in-equation comments
+\\usepackage{hyperref}
+\\usepackage{multicol}
+\\usepackage{graphicx}
+
+\\newcommand{\hint}[1]{%
+    \\fbox{ \\parbox{\\dimexpr\\linewidth-2\\fboxsep-2\\fboxrule}{
+        Hint: #1
+    }
+}
+}
+
+\\newenvironment{amatrix}[1]{%
+  \\left[\\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \\end{array}\\right]
+}
+
+\\begin{document}
+
+\\begin{center}
+	\\hrule
+	\\vspace{.4cm}
+	{\\textbf { \\large RSM Summer Python}}
+\\end{center}
+{\\textbf{Name:}\\ \\hspace{\\fill} \\textbf{Date:} \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\  \\\\
+{ \\textbf{Meet:}} ${1} \\hspace{\\fill} \\textbf{Assignment:} ${2: Assignment title} \\\\
+	\\hrule
+
+\\ 
+
+$0
+
+\\end{document}
+endsnippet
+
+snippet verb "verb" 
+\\verb|$1| $0
+endsnippet
+snippet practice "Practice Problems"
+\\begin{multicols}{${1:2}}
+	\\begin{enumerate}
+		\\item $0
+	\\end{enumerate}
+\\end{multicols}
+endsnippet
+
+
+snippet beamer "Beamer Presentation" b
+\\documentclass[12pt]{scrartcl}
+\\documentclass{beamer}
+
+
+\\usepackage[american]{babel}
+\\usepackage[autostyle]{csquotes}
+\\usepackage{hyperref}
+
+\\usepackage[
+    style=numeric,
+    backend=biber,
+    hyperref=true
+]{biblatex}
+\\bibliography{$HOME/Documents/latex/sources}
+
+\\title{${1:title}}
+\\author{Daniel Palamarchuk}
+\\institute{Virginia Tech}
+\\date{${2:date}}
+
+\\begin{document}
+
+\\frame{\\titlepage}
+
+\\begin{frame}{3:frame title}
+	${4:frame body}
+\\end{frame}
+
+${0:body}
+
+\\begin{frame}[allowframebreaks]{Bibliography}
+    \\printbibliography
+\\end{frame}
+
+\\end{document}
+endsnippet
+
+snippet frame "beamer frame" b
+
+\\begin{frame}{${1:title}}
+	${0:body}
+\\end{frame}
+endsnippet

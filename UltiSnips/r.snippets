@@ -1,0 +1,34 @@
+snippet lib "Import a library"
+library(${1:${VISUAL:package}})${0}
+endsnippet
+
+snippet source "Source a file"
+source("${1:${VISUAL:file}}")${0}
+endsnippet
+
+snippet ggp "ggplot2 plot"
+ggplot(${1:${VISUAL:data}}, aes(${2:aesthetics})) +
+	${0:[geom_...]}
+endsnippet
+
+snippet if "If statement"
+if ($1) {
+	${2:${VISUAL}}
+}$0
+endsnippet
+
+snippet eif "Else-If statement"
+else if ($1) {
+	${2:${VISUAL}}
+}$0
+endsnippet
+
+snippet el "Else statement"
+else {
+	${1:${VISUAL}}
+}$0
+endsnippet
+
+snippet read "Imports data" 
+data.table::fread("$1", data.table = FALSE)$0
+endsnippet

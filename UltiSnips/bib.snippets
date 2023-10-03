@@ -1,0 +1,70 @@
+priority -50
+
+snippet online "Online resource" b
+
+@online{${1:name},
+	author		= {${2:author}},
+	title		= {${3:title}},
+	year		= {${4:year}},
+	url			= {${5:url}},
+}
+endsnippet
+
+snippet article "Article reference" b
+
+@article{${1:name},
+	author		= {${2:author}},
+	title		= {${3:title}},
+	subtitle	= {${4:subtitle}},
+	journaltitle= {${5:journal}},
+	journalsubtitle= {${6:journalsub}},
+	editor		= {${7:edit}},
+	location    = {${8:location}},
+	publisher   = {${9:publisher}},
+	volume		= {${10:NN}},
+	number		= {${11:NN}},
+	year		= {${12:YYYY}},
+	pages		= {${13:NN--NN}},
+}
+endsnippet
+
+snippet book "Book reference" b
+
+@book{${1:name},
+	author		= {${2:author}},
+	title		= {${3:title}},
+	subtitle	= {${4:subtitle}},
+	year		= {${5:YYYY}},
+	location	= {${6:somewhere}},
+	publisher	= {${7:publisher}},
+	pages		= {${10:NN--NN}},
+}
+endsnippet
+
+snippet inb "In Book reference" b
+
+@inbook{${1:name},
+	author		= {${2:author}},
+	title		= {${3:title}},
+	subtitle	= {${4:subtitle}},
+	booktitle	= {${5:book}},
+	editor		= {${6:editor}},
+	year		= {${7:YYYY}},
+	location	= {${8:somewhere}},
+	publisher	= {${9:publisher}},
+}
+endsnippet
+
+snippet rep "Report" b
+
+@techreport{${1:name},
+	author		= {${2:author}},
+	title		= {${3:title}},
+	institution	= {${4:institution}},
+	year		= {${5:YYYY}},
+	type		= {${6:Overall Organization Report}},
+	number		= {${7:number}},
+	address		= {${8:City, Country}},
+	month		= {${9:month}},
+}
+endsnippet
