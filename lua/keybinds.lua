@@ -44,6 +44,21 @@ vim.keymap.set('n', '<Leader>fF', '<Cmd>lua require("telescope.builtin").find_fi
 vim.keymap.set('n', '<Leader>fg', '<Cmd>Telescope git_files<cr>')
 vim.keymap.set('n', '<Leader>fb', '<Cmd>lua require("telescope.builtin").live_grep({cwd="/home/lizzy/Documents/latex/", glob_pattern="sources.bib", disable_coordinates=true, use_regex=true, default_text="@.*\\\\{",path_display = function() return "" end})<cr>')
 vim.keymap.set('n', '<Leader>fw', '<Cmd>lua require("telescope.builtin").live_grep()<cr>')
+vim.keymap.set('n', '<Leader>fG', function ()
+    local handle = io.popen('git rev-parse --show-toplevel');
+    if handle == nil then
+        error("Couldn't get handle for some reason")
+    end
+    local output = handle:read('*a')
+    local git_dir = output:gsub('[\n\r]', '')
+    handle:close()
+    -- If not in git repo
+    if git_dir == "" then
+        error("Not in git repository")
+    else
+        require("telescope.builtin").live_grep({cwd=git_dir})
+    end
+end)
 
 local ts_r = require('ts_r')
 vim.api.nvim_create_autocmd({'VimEnter'}, {
