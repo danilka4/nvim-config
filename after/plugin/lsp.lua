@@ -39,7 +39,7 @@ require('mason-lspconfig').setup_handlers({
     end,
 })
 
-require 'lspconfig'.texlab.setup { cmd = { "texlab" }, filetypes = { "tex", "bib" }}
+require 'lspconfig'.texlab.setup { cmd = { "texlab" }, filetypes = { "tex", "bib" } }
 require 'lspconfig'.lua_ls.setup {
     settings = {
         Lua = {
@@ -92,9 +92,34 @@ cmp.setup({
         },
         {
             { name = 'buffer' },
-        }
+        },
+        { {
+            name = "dictionary",
+            keyword_length = 2,
+        }, }
     )
 })
+
+require("cmp_dictionary").setup({
+    -- The following are default values.
+    exact = 2,
+    first_case_insensitive = false,
+    document = false,
+    document_command = "wn %s -over",
+    async = false,
+    sqlite = false,
+    max_items = -1,
+    capacity = 5,
+    debug = false,
+})
+
+require("cmp_dictionary").switcher({
+    filetype = {
+        md = "/home/lizzy/Documents/latex/authors.dict",
+        vimwiki = "/home/lizzy/Documents/latex/authors.dict",
+    },
+})
+
 
 cmp.setup.cmdline('/', {
     sources = {
