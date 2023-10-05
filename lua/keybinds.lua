@@ -63,10 +63,7 @@ end
 vim.keymap.set("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>")
 vim.keymap.set("i", "]]", "a<Esc>r'a")
 
-vim.keymap.set("n", "<leader>wq", "<c-w>s:e ~/Documents/theory/wiki/index.md<CR>")
+-- vim.keymap.set("n", "<leader>wq", "<c-w>s:e ~/Documents/theory/wiki/index.md<CR>")
 
 -- Opens up oil
 vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
-
--- Shift tab thingy
-vim.keymap.set("i", '<S-Tab>', '<c-d>')
