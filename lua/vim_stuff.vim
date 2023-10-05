@@ -73,14 +73,10 @@ function SetTexOptions()
         au VimLeave * !latexmk -c %
         au VimLeave * !rm *.bbl
         au VimLeave * !rm *.xdv
-        au VimEnter * call jobstart("grep '^@' $HOME/Documents/latex/sources.bib | cut -d '{' -f2 | cut -d ',' -f1 > $HOME/Documents/latex/authors.dict")|CmpDictionaryUpdate
     nnoremap <leader>ej :vsplit ~/.config/nvim/UltiSnips/tex.snippets<CR>
     nnoremap <leader>ek :split ~/.local/share/nvim/plugins/plugged/vim-snippets/UltiSnips/tex.snippets<CR><CR>
     "nnoremap <Leader>w :call Word_count()<CR>
     set spell spelllang=en_us,uk
-    "inoremap <expr><buffer> <CR> CR()
-        "set dictionary+=$HOME/Documents/latex/authors.dic
-        "set complete+=k
 endfunction
 
 function Word_count()
