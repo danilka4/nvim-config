@@ -67,7 +67,7 @@ function SetTexOptions()
         nnoremap <Leader>o :!latexmk -pdf -pv -shell-escape -outdir="%:h" "%"<CR>
         nnoremap <Leader>x :w<CR>:!latexmk -xelatex "%"<CR>
         au BufWritePost * call jobstart('latexmk -shell-escape -pdf -outdir='.expand('%:h').' '.expand('%'))
-        nnoremap <Leader>v :!zathura $(echo % \| sed 's/tex$/pdf/') --fork<CR><CR>
+        nnoremap <Leader>v :silent!!{zathura $(echo % \| sed 's/tex$/pdf/') --fork}<CR>
         nnoremap <Leader>b :split ~/Documents/latex/sources.bib<cr>
         "inoremap ]] =<Esc>r'a
         au VimLeave * !latexmk -c %

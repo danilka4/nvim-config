@@ -68,8 +68,31 @@ require("lazy").setup({
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-cmdline',
             'uga-rosa/cmp-dictionary',
+            --'kkharji/sqlite.lua', -- For better dictionary
         }
     },
+    --{
+    --'f3fora/nvim-texlabconfig',
+    --config = function()
+    --    local config = {
+    --        cache_activate = true,
+    --        cache_filetypes = { 'tex', 'bib' },
+    --        cache_root = vim.fn.stdpath('cache'),
+    --        reverse_search_start_cmd = function()
+    --            return true
+    --        end,
+    --        reverse_search_edit_cmd = vim.cmd.edit,
+    --        reverse_search_end_cmd = function()
+    --            return true
+    --        end,
+    --        file_permission_mode = 438,
+    --    }
+    --    require('texlabconfig').setup(config)
+    --end,
+    ---- ft = { 'tex', 'bib' }, -- Lazy-load on filetype
+    --build = 'go build'
+    ---- build = 'go build -o ~/.bin/' if e.g. ~/.bin/ is in $PATH
+    --},
     -- Discord integration
     'andweeb/presence.nvim',
 
@@ -96,6 +119,9 @@ require("lazy").setup({
 
     -- Harpoon
     'theprimeagen/harpoon',
+
+    -- Trouble for quickfix
+    'folke/trouble.nvim',
 
     'nvim-lualine/lualine.nvim',
     -- If you want to have icons in your statusline choose one of these

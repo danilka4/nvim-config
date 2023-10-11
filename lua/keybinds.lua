@@ -27,8 +27,8 @@ vim.keymap.set("n", "<Left>", "<nop>")
 vim.keymap.set("n", "<Right>", "<nop>")
 
 
-vim.keymap.set("n", "<C-S-Up>", ":resize -2<CR>")
-vim.keymap.set("n", "<C-S-Down>", ":resize +2<CR>")
+vim.keymap.set("n", "<C-S-Up>", ":resize +2<CR>")
+vim.keymap.set("n", "<C-S-Down>", ":resize -2<CR>")
 vim.keymap.set("n", "<C-S-Left>", ":vertical resize -2<CR>")
 vim.keymap.set("n", "<C-S-Right>", ":vertical resize +2<CR>")
 
@@ -82,3 +82,13 @@ vim.keymap.set("i", "]]", "a<Esc>r'a")
 
 -- Opens up oil
 vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
+
+-- Quickfix shenanigans
+vim.keymap.set("n", "]q", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "[q", "<cmd>cprevious<CR>zz")
+vim.keymap.set("n", "]l", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "[l", "<cmd>lprevious<CR>zz")
+vim.keymap.set("n", "<leader>m", "<cmd>make<cr>")
+vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
+  {silent = true, noremap = true}
+)
