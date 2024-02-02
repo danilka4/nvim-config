@@ -16,7 +16,8 @@ snippet art "article template" b
 \\usepackage[
 	style=authoryear-ibid,
 	backend=biber,
-	hyperref=true
+	hyperref=true,
+	natbib=true
 ]{biblatex}
 \\bibliography{/home/lizzy/Documents/latex/sources}
 
@@ -51,7 +52,8 @@ snippet reaction "5554 reaction" b
 \\usepackage[
 	style=authoryear-ibid,
 	backend=biber,
-	hyperref=true
+	hyperref=true,
+	natbib=true
 ]{biblatex}
 \\bibliography{/home/lizzy/Documents/latex/sources}
 
@@ -81,11 +83,11 @@ ${0:body}
 endsnippet
 
 snippet cp "cite in parenthesis" A
-\\parencite[$1]{$2} $0
+\\citep[$1]{$2} $0
 endsnippet
 
 snippet ct "cite in text"
-\\textcite[$1]{$2} $0
+\\citet[$1]{$2} $0
 endsnippet
 
 snippet cf "cite in full"
@@ -359,7 +361,8 @@ snippet slide "Slide Show" b
 \\usepackage[
 	style=authoryear-ibid,
 	backend=biber,
-	hyperref=true
+	hyperref=true,
+	natbib=true
 ]{biblatex}
 \\bibliography{/home/lizzy/Documents/latex/sources}
 
@@ -446,7 +449,8 @@ snippet beamer "Beamer Presentation" b
 \\usepackage[
     style=numeric,
     backend=biber,
-    hyperref=true
+    hyperref=true,
+	natbib=true
 ]{biblatex}
 \\bibliography{/home/lizzy/Documents/latex/sources}
 
@@ -477,4 +481,41 @@ snippet frame "beamer frame" b
 \\begin{frame}{${1:title}}
 	${0:body}
 \\end{frame}
+endsnippet
+
+snippet vt_presentation "virginia tech presentation" b
+\\documentclass[xcolor=table,aspectratio=169]{beamer}
+
+\\input{/home/lizzy/Documents/latex/presentation_preamble_vt}
+\\title{$1}
+\\author{Daniel Palamarchuk}
+\\institute{Virginia Tech}
+\\date{$2}
+
+\\begin{document}
+
+\\frame{\\titlepage}
+
+$0
+
+
+\\begin{frame}[allowframebreaks]{Bibliography}
+    \\printbibliography
+\\end{frame}
+
+\\end{document}
+endsnippet
+
+snippet check "Checkmark" 
+[$\checkmark$]
+endsnippet
+
+
+snippet image "Figure Image"
+\\begin{figure}
+    \\centering
+    \\includegraphics[width=0.9\textwidth]{$1}
+    \\caption{$2}
+    \\label{fig:$3}
+\\end{figure}
 endsnippet

@@ -27,10 +27,10 @@ vim.keymap.set("n", "<Left>", "<nop>")
 vim.keymap.set("n", "<Right>", "<nop>")
 
 
-vim.keymap.set("n", "<C-S-Up>", ":resize +2<CR>")
-vim.keymap.set("n", "<C-S-Down>", ":resize -2<CR>")
-vim.keymap.set("n", "<C-S-Left>", ":vertical resize -2<CR>")
-vim.keymap.set("n", "<C-S-Right>", ":vertical resize +2<CR>")
+vim.keymap.set("n", "<C-S-Up>", require('smart-splits').resize_up)
+vim.keymap.set("n", "<C-S-Down>", require('smart-splits').resize_down)
+vim.keymap.set("n", "<C-S-Left>", require('smart-splits').resize_left)
+vim.keymap.set("n", "<C-S-Right>", require('smart-splits').resize_right)
 
 -- <c-vim arrows> switches screen in terminal mode
 vim.keymap.set('t', '<c-j>', '<c-\\><c-n><c-w>j')
@@ -69,7 +69,7 @@ vim.api.nvim_create_autocmd({'VimEnter'}, {
 require'toggleterm'.setup{}
 
 local Terminal = require("toggleterm.terminal").Terminal
-local lazygit = Terminal:new({cmd = "lazygit", hidden = true, direction = "float"})
+local lazygit = Terminal:new({cmd = "lazygit", hidden = true, dir="git_dir",direction = "float"})
 
 function _lazygit_toggle()
   lazygit:toggle()
@@ -80,8 +80,15 @@ vim.keymap.set("i", "]]", "a<Esc>r'a")
 
 -- vim.keymap.set("n", "<leader>wq", "<c-w>s:e ~/Documents/theory/wiki/index.md<CR>")
 
+-- Sets keymap to go to wiki
+vim.keymap.set("n", "<leader>ww", ":e ~/Documents/theory/wiki/index.md<CR>")
+
 -- Opens up oil
 vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
+
+-- Switch buffers
+vim.keymap.set("n", "]b", "<cmd>bnext<CR>")
+vim.keymap.set("n", "{b", "<cmd>bprevious<CR>")
 
 -- Quickfix shenanigans
 vim.keymap.set("n", "]q", "<cmd>cnext<CR>zz")
@@ -89,6 +96,10 @@ vim.keymap.set("n", "[q", "<cmd>cprevious<CR>zz")
 vim.keymap.set("n", "]l", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "[l", "<cmd>lprevious<CR>zz")
 vim.keymap.set("n", "<leader>m", "<cmd>make<cr>")
-vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
-  {silent = true, noremap = true}
-)
+-- vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
+--   {silent = true, noremap = true}
+-- )
+
+-- Comment keybinds
+vim.keymap.set("n", "<leader>/", "gcc", {remap = true})
+vim.keymap.set("v", "<leader>/", "gcgv", {remap = true})

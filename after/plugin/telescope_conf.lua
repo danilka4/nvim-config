@@ -1,6 +1,6 @@
 require('telescope').setup{
   defaults = {
-      file_ignore_patterns = {"csv$", "stx$", "bil$"},
+      file_ignore_patterns = {"stx$", "bil$"},
     -- Default configuration for telescope goes here:
     -- config_key = value,
     mappings = {

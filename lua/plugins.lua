@@ -71,32 +71,34 @@ require("lazy").setup({
             --'kkharji/sqlite.lua', -- For better dictionary
         }
     },
-    --{
-    --'f3fora/nvim-texlabconfig',
-    --config = function()
-    --    local config = {
-    --        cache_activate = true,
-    --        cache_filetypes = { 'tex', 'bib' },
-    --        cache_root = vim.fn.stdpath('cache'),
-    --        reverse_search_start_cmd = function()
-    --            return true
-    --        end,
-    --        reverse_search_edit_cmd = vim.cmd.edit,
-    --        reverse_search_end_cmd = function()
-    --            return true
-    --        end,
-    --        file_permission_mode = 438,
-    --    }
-    --    require('texlabconfig').setup(config)
-    --end,
-    ---- ft = { 'tex', 'bib' }, -- Lazy-load on filetype
-    --build = 'go build'
-    ---- build = 'go build -o ~/.bin/' if e.g. ~/.bin/ is in $PATH
-    --},
+    'nvimtools/none-ls.nvim',
+    -- {
+    -- 'f3fora/nvim-texlabconfig',
+    -- config = function()
+    --     local config = {
+    --         cache_activate = true,
+    --         cache_filetypes = { 'tex', 'bib' },
+    --         cache_root = vim.fn.stdpath('cache'),
+    --         reverse_search_start_cmd = function()
+    --             return true
+    --         end,
+    --         reverse_search_edit_cmd = vim.cmd.edit,
+    --         reverse_search_end_cmd = function()
+    --             return true
+    --         end,
+    --         file_permission_mode = 438,
+    --     }
+    --     require('texlabconfig').setup(config)
+    -- end,
+    -- -- ft = { 'tex', 'bib' }, -- Lazy-load on filetype
+    -- build = 'go build'
+    -- -- build = 'go build -o ~/.bin/' if e.g. ~/.bin/ is in $PATH
+    -- },
     -- Discord integration
     'andweeb/presence.nvim',
 
-    {'nvim-lua/lsp-status.nvim', -- Adds LSP to lualine
+    {
+        'nvim-lua/lsp-status.nvim', -- Adds LSP to lualine
         dependencies = {
             'neovim/nvim-lspconfig',
             'nvim-lualine/lualine.nvim'
@@ -134,10 +136,50 @@ require("lazy").setup({
     'dstein64/vim-startuptime',
 
     -- Vim Wiki
-    {'vimwiki/vimwiki',
-        init = function ()
-            vim.g.vimwiki_list = {{path = '~/Documents/theory/wiki/', syntax = 'markdown', ext = '.md'}}
-        end
+    -- {
+    --     'vimwiki/vimwiki',
+    --     init = function()
+    --         vim.g.vimwiki_list = { { path = '~/Documents/theory/wiki/', syntax = 'markdown', ext = '.md' } }
+    --     end
+    -- },
+
+    {
+        "epwalsh/obsidian.nvim",
+        version = "*",
+        lazy = true,
+        ft = "markdown",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        opts = {
+            workspaces = {
+                {
+                    name = "personal",
+                    path = "~/Documents/theory/",
+                },
+            },
+
+            completion = {
+                prepend_note_path = true,
+                use_path_only = true
+            },
+            note_id_func = function(title)
+                return title
+            end,
+            templates = {
+                subdir = "templates",
+                date_format = "%Y-%m-%d-%a",
+                time_format = "%H:%M",
+            },
+            mappings = {
+                ["<CR>"] = {
+                    action = function()
+                        return require("obsidian").util.gf_passthrough()
+                    end,
+                    opts = { noremap = false, expr = true, buffer = true },
+                },
+            },
+        },
     },
 
     -- Better file navigation
@@ -145,10 +187,33 @@ require("lazy").setup({
 
     --Plug 'jiangmiao/auto-pairs'
     {
-    'goolord/alpha-nvim',
-    dependencies = { 'kyazdani42/nvim-web-devicons' },
-    config = function ()
-        require'alpha'.setup(require'alpha.themes.startify'.config)
-    end
-};
+        'goolord/alpha-nvim',
+        dependencies = { 'kyazdani42/nvim-web-devicons' },
+        config = function()
+            require 'alpha'.setup(require 'alpha.themes.startify'.config)
+        end
+    },
+    'tpope/vim-commentary',
+
+    { 'mrjones2014/smart-splits.nvim' }, -- Makes split size change go in direction you want
+
+
+    'jpmcb/nvim-llama',
+
+    -- {
+    --     'jakewvincent/mkdnflow.nvim',
+    --     config = function()
+    --         require('mkdnflow').setup({
+    --             -- Config goes here; leave blank for defaults
+    --             links = {
+    --                 style='wiki',
+    --                 conceal=true,
+    --             },
+    --             bib = {
+    --                 default_path = "/home/lizzy/Documents/latex/sources.bib"
+    --             }
+    --         })
+    --     end
+    -- },
+
 })

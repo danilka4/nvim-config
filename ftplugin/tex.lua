@@ -1,0 +1,24 @@
+local vim = vim
+vim.keymap.set('n', '<CR>', function ()
+    if vim.fn.expand('<cWORD>') == "\\item" then
+        vim.cmd("normal! ciW\\item[$\\checkmark$]")
+        vim.cmd("normal! B")
+        elseif vim.fn.expand('<cWORD>') == "\\item[$\\checkmark$]" then
+        vim.cmd("normal! ciW\\item")
+        vim.cmd("normal! B")
+    end
+end)
+
+vim.keymap.set('n', '<Leader>ir', function ()
+    local image_path = "~/Documents/skool/thesis/presentations/images/"
+    local file_of_interest = vim.api.nvim_exec('!find -L '..image_path..' -name "*_.png"', true)
+    if string.len(file_of_interest) == 74 then
+        error("No file found")
+    else
+        local name = vim.fn.input("Name of Image: ")
+        local date, _ = file_of_interest:match("^.+/(.+)%.(.+)$")
+        -- vim.print('~/Documents/skool/thesis/presentations/images/'..date..name..'.png')
+        vim.print(date)
+        vim.cmd('!mv '..image_path..date..'.png '..image_path..date..name..'.png')
+    end
+end)

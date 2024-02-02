@@ -54,6 +54,8 @@ let g:presence_neovim_image_text   = "The One True Text Editor"
 " Trigger a highlight in the appropriate direction when pressing these keys:
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
+" sets html files to html
+au BufNewFile,BufRead *.html set filetype=html
 
 "
 " presets for tex stuff
@@ -64,16 +66,21 @@ function SetTexOptions()
         "nnoremap <Leader>p :w<CR>:silent !latexmk -pdf -xelatex %<CR>
         "au VimEnter * silent !zathura $(echo % | sed 's/tex$/pdf/') & disown
         "nnoremap <Leader>p :w<CR>:silent !latexmk -quiet -pv "%"<CR>:redraw!<CR>
-        nnoremap <Leader>o :!latexmk -pdf -pv -shell-escape -outdir="%:h" "%"<CR>
+        " nnoremap <Leader>o :!latexmk -c % && latexmk -pdf -pv -shell-escape -outdir="%:h" %<CR>
+        nnoremap <Leader>o :!latexmk -pdf -gg -pv -shell-escape -outdir="%:h" %<CR>
+        " Bold
+        vnoremap <c-b> <Esc>`<i\textbf{<Esc>`>12la}<Esc> 
+        " Turn into figure
+        vnoremap <Leader>f >><Esc>`<O\begin{figure}<Esc>`>o\caption{}<CR>\label{}<CR>\end{figure}<Esc>2k$
         nnoremap <Leader>x :w<CR>:!latexmk -xelatex "%"<CR>
-        au BufWritePost * call jobstart('latexmk -shell-escape -pdf -outdir='.expand('%:h').' '.expand('%'))
+        au BufWritePost * call jobstart('latexmk -pv -shell-escape -pdf -outdir='.expand('%:h').' '.expand('%'))
         nnoremap <Leader>v :silent!!{zathura $(echo % \| sed 's/tex$/pdf/') --fork}<CR>
         nnoremap <Leader>b :split ~/Documents/latex/sources.bib<cr>
         "inoremap ]] =<Esc>r'a
         au VimLeave * !latexmk -c %
         au VimLeave * !rm *.bbl
         au VimLeave * !rm *.xdv
-        au VimEnter * call jobstart("grep '^@' $HOME/Documents/latex/sources.bib | cut -d '{' -f2 | cut -d ',' -f1 > $HOME/Documents/latex/authors.dict")|CmpDictionaryUpdate
+        au VimEnter * call jobstart("grep '^@' $HOME/Documents/latex/sources.bib | cut -d '{' -f2 | cut -d ',' -f1 > $HOME/Documents/latex/authors.dict")
     nnoremap <leader>ej :vsplit ~/.config/nvim/UltiSnips/tex.snippets<CR>
     nnoremap <leader>ek :split ~/.local/share/nvim/plugins/plugged/vim-snippets/UltiSnips/tex.snippets<CR><CR>
     "nnoremap <Leader>w :call Word_count()<CR>
@@ -114,7 +121,8 @@ endfunction
 autocmd FileType markdown call SetMdOptions()
 function SetMdOptions()
     nnoremap <Leader>b :split ~/Documents/latex/sources.bib<cr>
-    nnoremap <Leader>v :!zathura $(echo % \| sed 's/md$/pdf/' \| sed 's/notes/readings/') --fork<CR><CR>
+    nnoremap <Leader>v :!zathura $(echo % \| sed 's/md$/pdf/' \| sed 's/notes/readings/g') --fork<CR><CR>
+
     set spell
     "nnoremap <leader>v 
 endfunction

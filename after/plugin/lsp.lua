@@ -5,6 +5,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         local opts = { buffer = bufnr, remap = false }
 
         vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+        vim.keymap.set("n", "<leader>F", function() vim.lsp.buf.format() end, opts)
         -- Custom implementation of K for R files
         if vim.bo.filetype ~= "r" and vim.bo.filetype ~= "rmd" then
             vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
@@ -24,7 +25,7 @@ require('mason').setup({})
 require('mason-lspconfig').setup({
     -- Replace the language servers listed here
     -- with the ones you want to install
-    ensure_installed = { 'clangd', 'lua_ls', 'texlab', 'r_language_server', 'pyright', 'tsserver', 'rust_analyzer' },
+    ensure_installed = { 'clangd', 'lua_ls', 'texlab', 'r_language_server', 'pyright', 'tsserver', 'rust_analyzer', 'html'},
 })
 
 
@@ -58,8 +59,13 @@ require('mason-lspconfig').setup_handlers({
 --            },
 --        },
 --})
+-- -v, --verbosity...     Increase message verbosity (-vvvv for max verbosity)
 
-require 'lspconfig'.texlab.setup { cmd = { "texlab" }, filetypes = { "tex", "bib" },  }
+require('lsp-zero')
+require 'lspconfig'.texlab.setup {
+    cmd = {'texlab', '-vvvv'}
+}
+
 require 'lspconfig'.lua_ls.setup {
     settings = {
         Lua = {
@@ -122,24 +128,17 @@ cmp.setup({
 
 require("cmp_dictionary").setup({
     -- The following are default values.
-    exact = 2,
+    exact_length = 2,
     first_case_insensitive = false,
-    document = false,
-    document_command = "wn %s -over",
     async = false,
     --sqlite = true,
-    max_items = -1,
-    capacity = 5,
+    max_number_items = -1,
     debug = false,
-})
-
-require("cmp_dictionary").switcher({
     filetype = {
         md = "/home/lizzy/Documents/latex/authors.dict",
         vimwiki = "/home/lizzy/Documents/latex/authors.dict",
     },
 })
-
 
 cmp.setup.cmdline('/', {
     sources = {
@@ -168,7 +167,10 @@ local tex_type_switch = {
 cmp.setup.filetype('tex', {
     formatting = {
         format = function(entry, vim_item)
+            if tex_type_switch[vim_item.kind] then
             vim_item.kind = tex_type_switch[vim_item.kind]
+            return vim_item
+            end
             return vim_item
         end
     },
