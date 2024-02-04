@@ -9,7 +9,7 @@ vim.g.mapleader = " "
 vim.keymap.set('i', '<c-s>', '<esc>:w<cr>a')
 
 -- Records tea in insert mode
-vim.keymap.set('i', '<c-t>', '<esc>:!tea<cr>a')
+-- vim.keymap.set('i', '<c-t>', '<esc>:!tea<cr>a')
 
 -- Opens vimrc
 vim.keymap.set('n', '<leader>ev', ':vsplit $MYVIMRC<cr>')
