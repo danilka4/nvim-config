@@ -60,11 +60,11 @@ vim.keymap.set('n', '<Leader>fG', function ()
     end
 end)
 
-local ts_r = require('ts_r')
-vim.api.nvim_create_autocmd({'VimEnter'}, {
-    pattern = {"*.r", "*.rmd"},
-    callback = function() ts_r.open_term() end,
-})
+-- local ts_r = require('ts_r')
+-- vim.api.nvim_create_autocmd({'VimEnter'}, {
+--     pattern = {"*.r", "*.rmd"},
+--     callback = function() ts_r.open_term() end,
+-- })
 
 require'toggleterm'.setup{}
 
@@ -76,7 +76,7 @@ function _lazygit_toggle()
 end
 
 vim.keymap.set("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>")
-vim.keymap.set("i", "]]", "a<Esc>r'a")
+-- vim.keymap.set("i", "]]", "a<Esc>r'a")
 
 -- vim.keymap.set("n", "<leader>wq", "<c-w>s:e ~/Documents/theory/wiki/index.md<CR>")
 
@@ -88,7 +88,7 @@ vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" }
 
 -- Switch buffers
 vim.keymap.set("n", "]b", "<cmd>bnext<CR>")
-vim.keymap.set("n", "{b", "<cmd>bprevious<CR>")
+vim.keymap.set("n", "[b", "<cmd>bprevious<CR>")
 
 -- Quickfix shenanigans
 vim.keymap.set("n", "]q", "<cmd>cnext<CR>zz")
@@ -96,6 +96,14 @@ vim.keymap.set("n", "[q", "<cmd>cprevious<CR>zz")
 vim.keymap.set("n", "]l", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "[l", "<cmd>lprevious<CR>zz")
 vim.keymap.set("n", "<leader>m", "<cmd>make<cr>")
+
+vim.keymap.set("n", "]t", function()
+  require("todo-comments").jump_next()
+end, { desc = "Next todo comment" })
+
+vim.keymap.set("n", "[t", function()
+  require("todo-comments").jump_prev()
+end, { desc = "Previous todo comment" })
 -- vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
 --   {silent = true, noremap = true}
 -- )

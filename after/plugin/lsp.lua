@@ -25,7 +25,7 @@ require('mason').setup({})
 require('mason-lspconfig').setup({
     -- Replace the language servers listed here
     -- with the ones you want to install
-    ensure_installed = { 'clangd', 'lua_ls', 'texlab', 'r_language_server', 'pyright', 'tsserver', 'rust_analyzer', 'html'},
+    ensure_installed = { 'clangd', 'lua_ls', 'texlab', 'r_language_server', 'pyright', 'tsserver', 'rust_analyzer', 'html' },
 })
 
 
@@ -63,7 +63,36 @@ require('mason-lspconfig').setup_handlers({
 
 require('lsp-zero')
 require 'lspconfig'.texlab.setup {
-    cmd = {'texlab', '-vvvv'}
+    cmd = { 'texlab', '-vvvv' },
+    settings = {
+        texlab = {
+            diagnostics = {
+                ignoredPatterns = {'Unused label'}
+            }
+        }
+    }
+}
+
+local function obtainWords(file)
+    local dict = {}
+    local f = io.open(file, "r")
+    if f == nil then
+        error("File does not exist")
+    end
+    for l in f:lines() do
+        table.insert(dict, l)
+    end
+    f:close()
+    return dict
+end
+require 'lspconfig'.ltex.setup {
+    settings = {
+        ltex = {
+            -- dictionary = { ['en-US'] = obtainWords('/home/lizzy/.config/nvim/spell/en.utf-8.add') }
+            disabledRules = {['en-US'] = {'NUMBERS_IN_WORDS', 'MORFOLOGIK_RULE_EN_US', 'UPPERCASE_SENTENCE_START', 'EN_UNPAIRED_BRACKETS', 'UNLIKELY_OPENING_PUNCTUATION', 'COMMA_PARENTHESIS_WHITESPACE'}},
+            -- enabled = {'latex'}
+        },
+    },
 }
 
 require 'lspconfig'.lua_ls.setup {
@@ -168,8 +197,8 @@ cmp.setup.filetype('tex', {
     formatting = {
         format = function(entry, vim_item)
             if tex_type_switch[vim_item.kind] then
-            vim_item.kind = tex_type_switch[vim_item.kind]
-            return vim_item
+                vim_item.kind = tex_type_switch[vim_item.kind]
+                return vim_item
             end
             return vim_item
         end
