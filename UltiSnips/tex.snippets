@@ -132,7 +132,7 @@ snippet sqr "Square root" A
 \sqrt{$1} $0
 endsnippet
 
-snippet root "root" A
+snippet root "root"
 \sqrt[$1]{$2} $0
 endsnippet
 
@@ -175,7 +175,7 @@ $0
 endsnippet
 
 snippet sub "Subsection"
-\subsection{${1:${VISUAL:subsection name}}}
+\subsection${1:*}{${2:${VISUAL:subsection name}}}
 
 $0
 endsnippet
@@ -291,7 +291,7 @@ snippet over "creates line above"
 \\overline{$1} $0
 endsnippet
 
-snippet graph "pgfplots graph" b
+snippet plot "pgfplots plot" b
 \\begin{tikzpicture}
 	\\begin{axis}[
 		xmin = ${1:-5.2}, xmax = ${2:5.2},
@@ -524,4 +524,32 @@ snippet image "Figure Image"
     \\caption{$2}
     \\label{fig:$3}
 \\end{figure}
+endsnippet
+
+snippet graph "Graph theory graph" b
+\\begin{figure}[h]
+	\\centering
+	\\begin{tikzpicture}[shorten >=1pt,node distance=50pt]
+		\\tikzstyle{vertex}=[circle,fill=black!25,minimum size=12pt,inner sep=2pt,
+		every edge quotes/.style = {auto, font=\\footnotesize, sloped}
+		]
+		\\node[vertex] (a) {A};
+		\\node[vertex] (b) [right$0 of=a]   {B};
+		\\draw (a) -- (b);
+	\\end{tikzpicture}
+    \\caption{$1}
+    \\label{fig:$2}
+\\end{figure}
+endsnippet
+
+snippet vertex "Graph theory vertex" b
+\\node[vertex] ($1) [$2 of=$3]    {$0};
+endsnippet
+
+snippet edge "Graph theory edge" b
+\\draw[] ($1) -- ($0);
+endsnippet
+
+snippet dedge "Graph theory draw edge"
+($1)	edge["$3"]	($2)
 endsnippet

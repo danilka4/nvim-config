@@ -1,1 +1,11 @@
 # Fdb version 4
+["pdflatex"] 1719848470.75708 "/home/lizzy/.config/nvim/UltiSnips/tex.snippets" "/home/lizzy/.config/nvim/UltiSnips/tex.pdf" "tex" 1719848470.88261 2
+  "/home/lizzy/.config/nvim/UltiSnips/tex.aux" 1696344263.82943 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "/home/lizzy/.config/nvim/UltiSnips/tex.snippets" 1719848470.66241 9059 f666ee2e3f4deb7f762198bdc3612647 ""
+  "/usr/share/texmf-dist/web2c/texmf.cnf" 1716849630 41588 b43d3e860a4f94167ee1e725ff526a72 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1718643332 7192552 904542c5e6c96cfc427dd3c76b0c7633 ""
+  (generated)
+  "/home/lizzy/.config/nvim/UltiSnips/tex.aux"
+  "/home/lizzy/.config/nvim/UltiSnips/tex.log"
+  "/home/lizzy/.config/nvim/UltiSnips/tex.pdf"
+  (rewritten before read)

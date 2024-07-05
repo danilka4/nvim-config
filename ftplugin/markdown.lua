@@ -4,6 +4,10 @@ local function colon()
 end
 vim.keymap.set("n", "<leader>wh", ":ObsidianTemplate default.md<CR>")
 vim.keymap.set("i", "<CR>", function()
+    if vim.fn.col(".") ~= vim.fn.col("$") then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-j>", true, true, true))
+        return
+    end
     local has_colon = colon()
     vim.cmd("normal! ^")
     local cword = vim.fn.expand('<cWORD>')
@@ -16,7 +20,7 @@ vim.keymap.set("i", "<CR>", function()
         vim.cmd("normal! >>")
     end
     vim.cmd('startinsert!')
-end)
+end, {noremap=true})
 
 vim.keymap.set("n", "o", function()
     local has_colon = colon()

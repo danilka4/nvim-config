@@ -34,7 +34,7 @@ set path+=**
 nnoremap <leader><space> :nohlsearch<CR>
 
 " sets <c-j> to make a new line instead of split line in half
-inoremap <c-j> <Esc>o
+" inoremap <c-j> <Esc>o
 
 "inoremap <C-s> <Esc>:w<CR>a
 inoremap <C-a> <Esc>A
@@ -50,6 +50,7 @@ nnoremap <Leader>n :UltiSnipsEdit<CR>
 
 " Discord shit
 let g:presence_neovim_image_text   = "The One True Text Editor"
+" let g:presence_buttons = 0
 
 " Trigger a highlight in the appropriate direction when pressing these keys:
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']

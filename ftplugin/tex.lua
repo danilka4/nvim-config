@@ -40,13 +40,21 @@ vim.keymap.set('n', '<Leader>o', function()
     vim.cmd('!' .. table.concat(write(), ' '))
 end)
 
+vim.keymap.set('n', '<Leader>O', function()
+    local tab = write()
+    table.insert(tab, '-gg')
+    vim.cmd('!' .. table.concat(tab, ' '))
+end)
+
 vim.api.nvim_create_autocmd("BufWritePost", {
     callback = function ()
         local command_args = write()
         local command_name = table.remove(command_args, 1)
+        -- vim.uv.kill(420)
         vim.uv.spawn(command_name, {
             args = command_args,
             verbatim = false,
+            -- uid = 4,
         })
     end
 })

@@ -5,7 +5,7 @@ null_ls.setup({
         --null_ls.builtins.formatting.stylua,
         --null_ls.builtins.diagnostics.eslint,
         --null_ls.builtins.completion.spell,
-        null_ls.builtins.formatting.autopep8,
-        null_ls.builtins.formatting.latexindent
+        require('none-ls.formatting.autopep8'),
+        require('none-ls.formatting.latexindent'),
     },
 })
