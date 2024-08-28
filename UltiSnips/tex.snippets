@@ -19,7 +19,7 @@ snippet art "article template" b
 	hyperref=true,
 	natbib=true
 ]{biblatex}
-\\bibliography{/home/lizzy/Documents/latex/sources}
+\\bibliography{/home/lizzy/Documents/theory/sources}
 
 \\title{$1}
 \\author{Daniel Palamarchuk}
@@ -55,7 +55,7 @@ snippet reaction "5554 reaction" b
 	hyperref=true,
 	natbib=true
 ]{biblatex}
-\\bibliography{/home/lizzy/Documents/latex/sources}
+\\bibliography{/home/lizzy/Documents/theory/sources}
 
 \\makeatletter         
 \\renewcommand\maketitle{
@@ -194,6 +194,12 @@ endsnippet
 
 snippet minhtml "Minted html section" b
 \\begin{minted}{html}
+$1
+\\end{minted}
+endsnippet
+
+snippet minjs "Minted js section" b
+\\begin{minted}{javascript}
 $1
 \\end{minted}
 endsnippet
@@ -370,7 +376,7 @@ snippet slide "Slide Show" b
 	hyperref=true,
 	natbib=true
 ]{biblatex}
-\\bibliography{/home/lizzy/Documents/latex/sources}
+\\bibliography{/home/lizzy/Documents/theory/sources}
 
 \\title{$1}
 \\author{Daniel Palamarchuk}
@@ -458,7 +464,7 @@ snippet beamer "Beamer Presentation" b
     hyperref=true,
 	natbib=true
 ]{biblatex}
-\\bibliography{/home/lizzy/Documents/latex/sources}
+\\bibliography{/home/lizzy/Documents/theory/sources}
 
 \\title{${1:title}}
 \\author{Daniel Palamarchuk}
@@ -542,6 +548,26 @@ snippet graph "Graph theory graph" b
 \\end{figure}
 endsnippet
 
+snippet dgraph "Graph theory directed graph" b
+	\\begin{tikzpicture}[shorten >=1pt,node distance=40pt,
+       decoration = {markings,
+                     mark=at position .5 with {\\arrow{Stealth[length=2mm]}}},
+        every edge/.style = {draw, postaction=decorate},
+		every edge quotes/.style = {auto, font=\\footnotesize, sloped, near start}
+        ]
+		\\tikzstyle{vertex}=[circle,fill=black!25,minimum size=12pt,inner sep=2pt,
+		]
+		\\node[vertex] (a) {A};
+		\\node[vertex] (b) [right$1 of=a]   {B};
+		\\draw
+        (a)	edge["$0"]	(b)
+		;
+	\\end{tikzpicture}
+    \\caption{$1}
+    \\label{fig:$2}
+\\end{figure}
+endsnippet
+
 snippet vertex "Graph theory vertex" b
 \\node[vertex] ($1) [$2 of=$3]    {$0};
 endsnippet
@@ -552,4 +578,16 @@ endsnippet
 
 snippet dedge "Graph theory draw edge"
 ($1)	edge["$3"]	($2)
+endsnippet
+
+snippet circuit "Electric Circuit" b
+\\begin{circuitikz}[american voltages]
+\\draw
+    (0,0) to [battery1, l=$$1$V] (0,3)
+    $0
+    ;
+\\end{circuitikz}
+endsnippet
+snippet resistor "Electric Resistor" b
+to [R, l=$$2\\Omega$] ($1)$0
 endsnippet
