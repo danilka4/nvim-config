@@ -53,7 +53,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
         -- vim.uv.kill(420)
         vim.uv.spawn(command_name, {
             args = command_args,
-            verbatim = false,
+            verbatim = true,
             -- uid = 4,
         })
     end

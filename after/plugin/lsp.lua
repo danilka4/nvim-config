@@ -67,7 +67,7 @@ require 'lspconfig'.texlab.setup {
     settings = {
         texlab = {
             diagnostics = {
-                ignoredPatterns = {'Unused label'}
+                ignoredPatterns = { 'Unused label' }
             }
         }
     }
@@ -89,9 +89,9 @@ require 'lspconfig'.ltex.setup {
     settings = {
         ltex = {
             -- dictionary = { ['en-US'] = obtainWords('/home/lizzy/.config/nvim/spell/en.utf-8.add') }
-            disabledRules = {['en-US'] = {'NUMBERS_IN_WORDS', 'MORFOLOGIK_RULE_EN_US', 'UPPERCASE_SENTENCE_START', 'EN_UNPAIRED_BRACKETS', 'UNLIKELY_OPENING_PUNCTUATION', 'COMMA_PARENTHESIS_WHITESPACE'}},
+            disabledRules = { ['en-US'] = { 'NUMBERS_IN_WORDS', 'MORFOLOGIK_RULE_EN_US', 'UPPERCASE_SENTENCE_START', 'EN_UNPAIRED_BRACKETS', 'UNLIKELY_OPENING_PUNCTUATION', 'COMMA_PARENTHESIS_WHITESPACE' } },
             -- enabled = {'latex'}
-            enabled = {'tex', 'latex'}
+            enabled = { 'tex', 'latex' }
         },
     },
 }
@@ -141,19 +141,16 @@ cmp.setup({
         }),
         ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     },
-    sources = cmp.config.sources(
+    sources = {
+        { name = "path" },
+        { name = 'nvim_lsp' },
+        { name = 'ultisnips' },
+        { name = 'buffer' },
         {
-            { name = 'nvim_lsp' },
-            { name = 'ultisnips' },
-        },
-        {
-            { name = 'buffer' },
-        },
-        { {
             name = "dictionary",
-            keyword_length = 2,
-        }, }
-    )
+            keyword_length = 2
+        }
+    }
 })
 
 require("cmp_dictionary").setup({

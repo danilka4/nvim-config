@@ -7,7 +7,6 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="'"
 let g:UltiSnipsJumpBackwardTrigger="//"
 
-
 "
 " general stuff
 "
@@ -69,14 +68,14 @@ function SetTexOptions()
         " Turn into} figure
         vnoremap <Leader>f >><Esc>`<O\begin{figure}<Esc>`>o\caption{}<CR>\label{}<CR>\end{figure}<Esc>2k$
         nnoremap <Leader>v :silent!!{zathura $(echo % \| sed 's/tex$/pdf/') --fork}<CR>
-        nnoremap <Leader>b :split ~/Documents/latex/sources.bib<cr>
+        nnoremap <Leader>b :split ~/Documents/theory/sources.bib<cr>
         "inoremap ]] =<Esc>r'a
         au VimLeave * !latexmk -c %
         au VimLeave * !rm *.bbl
         au VimLeave * !rm *.xdv
         au VimLeave * !rm *.snm
         au VimLeave * !rm *.nav
-        au VimEnter * call jobstart("grep '^@' $HOME/Documents/latex/sources.bib | cut -d '{' -f2 | cut -d ',' -f1 > $HOME/Documents/latex/authors.dict")
+        au VimEnter * call jobstart("grep '^@' $HOME/Documents/theory/sources.bib | cut -d '{' -f2 | cut -d ',' -f1 > $HOME/Documents/latex/authors.dict")
     nnoremap <leader>ej :vsplit ~/.config/nvim/UltiSnips/tex.snippets<CR>
     nnoremap <leader>ek :split ~/.local/share/nvim/plugins/plugged/vim-snippets/UltiSnips/tex.snippets<CR><CR>
     "nnoremap <Leader>w :call Word_count()<CR>
@@ -116,10 +115,9 @@ endfunction
 
 autocmd FileType markdown call SetMdOptions()
 function SetMdOptions()
-    nnoremap <Leader>b :split ~/Documents/latex/sources.bib<cr>
-    nnoremap <Leader>v :!zathura $(echo % \| sed 's/md$/pdf/' \| sed 's/notes/readings/g') --fork<CR><CR>
-
-    set spell
+    nnoremap <Leader>b :split ~/Documents/theory/sources.bib<cr>
+    " nnoremap <Leader>v :!zathura $(echo % \| sed 's/md$/pdf/' \| sed 's/notes/readings/g') --fork<CR><CR>
+    nnoremap <Leader>v :silent!!{zathura $(echo % \| sed 's/notes/readings/g' \| sed 's/md$//')* --fork}<CR><CR>
     "nnoremap <leader>v 
 endfunction
 

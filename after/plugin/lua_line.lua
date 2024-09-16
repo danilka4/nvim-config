@@ -11,10 +11,7 @@ require('lualine').setup {
         theme = 'everforest',
         component_separators = { left = '', right = ''},
         section_separators = { left = '', right = ''},
-        disabled_filetypes = {
-            statusline = {},
-            winbar = {},
-        },
+        disabled_filetypes = {'markdown'},
         ignore_focus = {},
         always_divide_middle = true,
         globalstatus = false,
@@ -43,5 +40,8 @@ require('lualine').setup {
     tabline = {},
     winbar = {},
     inactive_winbar = {},
-    extensions = {}
+    extensions = {},
 }
+local function getWords()
+  return tostring(vim.fn.wordcount().words)
+end

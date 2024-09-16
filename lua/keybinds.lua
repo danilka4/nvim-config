@@ -42,7 +42,7 @@ vim.keymap.set('n', '<Leader>ff', "<Cmd> lua require('telescope.builtin').find_f
 
 vim.keymap.set('n', '<Leader>fF', '<Cmd>lua require("telescope.builtin").find_files({cwd="/home/lizzy"})<cr>')
 vim.keymap.set('n', '<Leader>fg', '<Cmd>Telescope git_files<cr>')
-vim.keymap.set('n', '<Leader>fb', '<Cmd>lua require("telescope.builtin").live_grep({cwd="/home/lizzy/Documents/latex/", glob_pattern="sources.bib", disable_coordinates=true, use_regex=true, default_text="@.*\\\\{",path_display = function() return "" end})<cr>')
+vim.keymap.set('n', '<Leader>fb', '<Cmd>lua require("telescope.builtin").live_grep({cwd="/home/lizzy/Documents/theory/", glob_pattern="sources.bib", disable_coordinates=true, use_regex=true, default_text="@.*\\\\{",path_display = function() return "" end})<cr>')
 vim.keymap.set('n', '<Leader>fw', '<Cmd>lua require("telescope.builtin").live_grep()<cr>')
 vim.keymap.set('n', '<Leader>fG', function ()
     local handle = io.popen('git rev-parse --show-toplevel');
