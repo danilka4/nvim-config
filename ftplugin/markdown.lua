@@ -1,5 +1,5 @@
 vim.opt.spell = true
-vim.opt.spelllang='en_us'
+vim.opt.spelllang = 'en_us'
 vim.cmd("set spellsuggest+=20")
 vim.cmd("UltiSnipsAddFiletypes markdown")
 
@@ -24,7 +24,7 @@ vim.keymap.set("i", "<CR>", function()
         vim.cmd("normal! >>")
     end
     vim.cmd('startinsert!')
-end, {noremap=true})
+end, { noremap = true })
 
 vim.keymap.set("n", "o", function()
     local has_colon = colon()
@@ -54,7 +54,7 @@ end)
 
 vim.keymap.set("n", "<leader>od", ":ObsidianTemplate default.md<CR>")
 vim.keymap.set("n", "<leader>ob", ":ObsidianBacklinks<CR>")
-vim.keymap.set("n", "<leader>of", function ()
+vim.keymap.set("n", "<leader>of", function()
     local value = vim.inspect(vim.opt.colorcolumn:get())
     if value == "{}" then
         vim.opt.colorcolumn = "100"
@@ -64,23 +64,49 @@ vim.keymap.set("n", "<leader>of", function ()
         vim.wo.wrap = true
     end
 end)
-vim.keymap.set("n", "<leader>og", function ()
+vim.keymap.set("n", "<leader>og", function()
     vim.fn.jobstart("obsidian")
 end)
 vim.keymap.set("n", "<leader>ot", ":split ~/Documents/theory/wiki/todo.md<CR>")
 vim.keymap.set("n", "<leader>ow", "/#<CR>:nohlsearch<CR>jVGg<c-g>")
+vim.keymap.set("n", "<leader>ff", ":ObsidianQuickSwitch<CR>")
+vim.keymap.set("n", "<leader>oc",
+    ":!cat " ..
+    vim.fn.fnameescape(vim.fn.expand("%:p")) ..
+    " | sed 's/\\[\\[\\([a-zA-Z0-9_\\. \\/]*\\)|t,\\([a-zA-Z0-9 -]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/@\\3[\\2]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|p,,\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\2\\]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|\\([a-zA-Z0-9_ ]*\\),\\([a-zA-Z0-9_ -]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\4, p. \\3 \\]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_\\/\\. ]*\\)|\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\2/g' | pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | xclip -selection clipboard<CR>",
+    { silent = true })
 
 vim.keymap.set("v", "<leader>ol", ":ObsidianLinkNew<CR>")
 
-local function getWords()
-    return tostring(vim.fn.wordcount().words - 12)
+local buffer_to_string = function()
+    local content = vim.api.nvim_buf_get_lines(0, 0, vim.api.nvim_buf_line_count(0), false)
+    return table.concat(content, "\n")
 end
+
+local function getWords()
+    local filename = vim.fn.fnameescape(vim.fn.expand("%:p"))
+
+    -- local _, amount_spaces = string.gsub(filename, " ", " ")
+    -- local subtract = 3 * (amount_spaces + 1) + 9
+
+    local words = vim.fn.system(
+        "echo \"" ..
+        buffer_to_string() .. "\" | sed -e '/---/,/---/d' | sed -e 's/^\\#.*$//' | sed -e 's/\\[\\[[a-zA-Z0-9_\\. \\/]*|//g' | wc -w")
+    return words
+    -- return tostring(vim.fn.wordcount().words - subtract)--..','.. tostring(subtract)
+    -- return words
+end
+
+vim.keymap.set("n", "<leader>op", function()
+    vim.print(getWords())
+end)
+
 require('lualine').setup {
     options = {
         icons_enabled = true,
         theme = 'everforest',
-        component_separators = { left = '', right = ''},
-        section_separators = { left = '', right = ''},
+        component_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
         disabled_filetypes = {},
         ignore_focus = {},
         always_divide_middle = true,
@@ -92,18 +118,18 @@ require('lualine').setup {
         }
     },
     sections = {
-        lualine_a = {'mode'},
-        lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = {'filename'},
-        lualine_x = {'encoding', getWords, 'filetype'},
-        lualine_y = {'progress'},
-        lualine_z = {'location'}
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'encoding', getWords, 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' }
     },
     inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = {'filename'},
-        lualine_x = {'location'},
+        lualine_c = { 'filename' },
+        lualine_x = { 'location' },
         lualine_y = {},
         lualine_z = {}
     },
