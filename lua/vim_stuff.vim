@@ -117,7 +117,8 @@ autocmd FileType markdown call SetMdOptions()
 function SetMdOptions()
     nnoremap <Leader>b :split ~/Documents/theory/sources.bib<cr>
     " nnoremap <Leader>v :!zathura $(echo % \| sed 's/md$/pdf/' \| sed 's/notes/readings/g') --fork<CR><CR>
-    nnoremap <Leader>v :silent!!{zathura $(echo % \| sed 's/notes/readings/g' \| sed 's/md$//')* --fork}<CR><CR>
+    nnoremap <Leader>v :silent!!{zathura $(echo %:p \| sed 's/notes/readings/g' \| sed 's/md$//')* --fork}<CR><CR>
+    nnoremap <Leader>V :!zathura $(echo %:p \| sed 's/notes/readings/g' \| sed 's/md$//')* --fork
     "nnoremap <leader>v 
 endfunction
 

@@ -73,7 +73,7 @@ vim.keymap.set("n", "<leader>ff", ":ObsidianQuickSwitch<CR>")
 vim.keymap.set("n", "<leader>oc",
     ":!cat " ..
     vim.fn.fnameescape(vim.fn.expand("%:p")) ..
-    " | sed 's/\\[\\[\\([a-zA-Z0-9_\\. \\/]*\\)|t,\\([a-zA-Z0-9 -]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/@\\3[\\2]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|p,,\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\2\\]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|\\([a-zA-Z0-9_ ]*\\),\\([a-zA-Z0-9_ -]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\4, p. \\3 \\]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_\\/\\. ]*\\)|\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\2/g' | pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | xclip -selection clipboard<CR>",
+    " | sed 's/\\\\\\(.\\){\\(.\\)}/\\2/g' | sed 's/\\[\\[\\([a-zA-Z0-9_\\. \\/]*\\)|t,\\([a-zA-Z0-9 -]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/@\\3[\\2]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|p,,\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\2\\]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|\\([a-zA-Z0-9_ ]*\\),\\([a-zA-Z0-9_ -,-]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\4, \\3 \\]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_\\/\\. ]*\\)|\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\2/g' | pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | xclip -selection clipboard<CR>",
     { silent = true })
 
 vim.keymap.set("v", "<leader>ol", ":ObsidianLinkNew<CR>")
@@ -84,7 +84,10 @@ local buffer_to_string = function()
 end
 
 local function getWords()
-    local filename = vim.fn.fnameescape(vim.fn.expand("%:p"))
+    -- Prevents lag for massive files
+    if vim.fn.line('$') > 100 then
+        return "reading notes"
+    end
 
     -- local _, amount_spaces = string.gsub(filename, " ", " ")
     -- local subtract = 3 * (amount_spaces + 1) + 9
@@ -92,12 +95,12 @@ local function getWords()
     local words = vim.fn.system(
         "echo \"" ..
         buffer_to_string() .. "\" | sed -e '/---/,/---/d' | sed -e 's/^\\#.*$//' | sed -e 's/\\[\\[[a-zA-Z0-9_\\. \\/]*|//g' | wc -w")
-    return words
+    return tonumber(words)
     -- return tostring(vim.fn.wordcount().words - subtract)--..','.. tostring(subtract)
     -- return words
 end
 
-vim.keymap.set("n", "<leader>op", function()
+vim.keymap.set("n", "<leader>ow", function()
     vim.print(getWords())
 end)
 
@@ -121,7 +124,9 @@ require('lualine').setup {
         lualine_a = { 'mode' },
         lualine_b = { 'branch', 'diff', 'diagnostics' },
         lualine_c = { 'filename' },
-        lualine_x = { 'encoding', getWords, 'filetype' },
+        lualine_x = { 'encoding',
+            getWords,
+            'filetype' },
         lualine_y = { 'progress' },
         lualine_z = { 'location' }
     },

@@ -1,10 +1,3 @@
-local lsp_status = require('lsp-status')
-
-local function lsp_progress()
-  return lsp_status.status()
-end
-
-
 require('lualine').setup {
     options = {
         icons_enabled = true,
@@ -42,6 +35,3 @@ require('lualine').setup {
     inactive_winbar = {},
     extensions = {},
 }
-local function getWords()
-  return tostring(vim.fn.wordcount().words)
-end
