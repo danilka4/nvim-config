@@ -209,6 +209,7 @@ require("lazy").setup({
             -- },
             note_id_func = function(title)
                 return title
+                --:gsub(" ", "_")
             end,
             note_frontmatter_func = function(note)
                 -- Add the title of the note as an alias.

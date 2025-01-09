@@ -5,7 +5,8 @@ vim.cmd("UltiSnipsAddFiletypes markdown")
 
 local function colon()
     vim.cmd("normal! $")
-    return vim.fn.expand('<cword>') == ':'
+    local ending = vim.fn.expand('<cword>')
+    return string.find(ending, ':') ~= nil
 end
 vim.keymap.set("i", "<CR>", function()
     if vim.fn.col(".") ~= vim.fn.col("$") then
@@ -75,6 +76,12 @@ vim.keymap.set("n", "<leader>oc",
     vim.fn.fnameescape(vim.fn.expand("%:p")) ..
     " | sed 's/\\\\\\(.\\){\\(.\\)}/\\2/g' | sed 's/\\[\\[\\([a-zA-Z0-9_\\. \\/]*\\)|t,\\([a-zA-Z0-9 -]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/@\\3[\\2]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|p,,\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\2\\]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|\\([a-zA-Z0-9_ ]*\\),\\([a-zA-Z0-9_ -,-]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\4, \\3 \\]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_\\/\\. ]*\\)|\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\2/g' | pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | xclip -selection clipboard<CR>",
     { silent = true })
+vim.keymap.set("n", "<leader>ot",
+    ":!cat " ..
+    vim.fn.fnameescape(vim.fn.expand("%:p")) ..
+    " | sed 's/\\\\\\(.\\){\\(.\\)}/\\2/g' | sed -e '/---/,/---/d' | sed -e 's/^\\#.*$//' | sed -e 's/^$//' | sed 's/\\[\\[\\([a-zA-Z0-9_\\. \\/]*\\)|\\([pt]\\),\\([a-zA-Z0-9 -,-]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\\\cite\\2[\\3]{\\4}/g' | sed 's/\\[\\[\\([a-zA-Z0-9_\\/\\. ]*\\)|\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\2/g' | grep -v '^$' | xclip -selection clipboard<CR>",
+    { silent = true })
+        -- buffer_to_string() .. "\" | sed -e '/---/,/---/d' | sed -e 's/^\\#.*$//' | sed -e 's/\\[\\[[a-zA-Z0-9_\\. \\/]*|//g' | wc -w")
 
 vim.keymap.set("v", "<leader>ol", ":ObsidianLinkNew<CR>")
 
@@ -85,7 +92,7 @@ end
 
 local function getWords()
     -- Prevents lag for massive files
-    if vim.fn.line('$') > 100 then
+    if vim.fn.line('$') > 30 then
         return "reading notes"
     end
 

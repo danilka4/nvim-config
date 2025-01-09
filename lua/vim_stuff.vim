@@ -117,14 +117,14 @@ autocmd FileType markdown call SetMdOptions()
 function SetMdOptions()
     nnoremap <Leader>b :split ~/Documents/theory/sources.bib<cr>
     " nnoremap <Leader>v :!zathura $(echo % \| sed 's/md$/pdf/' \| sed 's/notes/readings/g') --fork<CR><CR>
-    nnoremap <Leader>v :silent!!{zathura $(echo %:p \| sed 's/notes/readings/g' \| sed 's/md$//')* --fork}<CR><CR>
-    nnoremap <Leader>V :!zathura $(echo %:p \| sed 's/notes/readings/g' \| sed 's/md$//')* --fork
+    nnoremap <Leader>v :silent!!{zathura $(echo %:p \| sed 's/notes/readings/g' \| sed 's/md$/pdf/')* --fork}<CR><CR>
+    nnoremap <Leader>V :!zathura $(echo %:p \| sed 's/notes/readings/g' \| sed 's/md$/pdf/')* --fork
     "nnoremap <leader>v 
 endfunction
 
 " presets for bibliography
 
-let g:python3_host_prog = expand('/usr/bin/python3')
+let g:python3_host_prog = expand('/home/lizzy/.local/bin/python3')
 
 
 function! VimwikiLinkHandler(link)
