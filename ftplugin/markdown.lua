@@ -72,16 +72,19 @@ vim.keymap.set("n", "<leader>ot", ":split ~/Documents/theory/wiki/todo.md<CR>")
 vim.keymap.set("n", "<leader>ow", "/#<CR>:nohlsearch<CR>jVGg<c-g>")
 vim.keymap.set("n", "<leader>ff", ":ObsidianQuickSwitch<CR>")
 vim.keymap.set("n", "<leader>oc",
-    ":!cat " ..
-    vim.fn.fnameescape(vim.fn.expand("%:p")) ..
-    " | sed 's/\\\\\\(.\\){\\(.\\)}/\\2/g' | sed 's/\\[\\[\\([a-zA-Z0-9_\\. \\/]*\\)|t,\\([a-zA-Z0-9 -]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/@\\3[\\2]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|p,,\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\2\\]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|\\([a-zA-Z0-9_ ]*\\),\\([a-zA-Z0-9_ -,-]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\4, \\3 \\]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_\\/\\. ]*\\)|\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\2/g' | pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | xclip -selection clipboard<CR>",
+    function()
+        local name = vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
+        vim.cmd("!cat " ..
+            name ..
+            " | sed 's/\\\\\\(.\\){\\(.\\)}/\\2/g' | sed 's/\\[\\[\\([a-zA-Z0-9_\\. \\/]*\\)|t,\\([a-zA-Z0-9_ -,-]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/@\\3[\\2]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|p,,\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\2\\]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|\\([a-zA-Z0-9_ ]*\\),\\([a-zA-Z0-9_ -,-]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\4, \\3 \\]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_\\/\\. ]*\\)|\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\2/g' | pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | xclip -selection clipboard")
+    end,
     { silent = true })
 vim.keymap.set("n", "<leader>ot",
     ":!cat " ..
-    vim.fn.fnameescape(vim.fn.expand("%:p")) ..
+    vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)) ..
     " | sed 's/\\\\\\(.\\){\\(.\\)}/\\2/g' | sed -e '/---/,/---/d' | sed -e 's/^\\#.*$//' | sed -e 's/^$//' | sed 's/\\[\\[\\([a-zA-Z0-9_\\. \\/]*\\)|\\([pt]\\),\\([a-zA-Z0-9 -,-]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\\\cite\\2[\\3]{\\4}/g' | sed 's/\\[\\[\\([a-zA-Z0-9_\\/\\. ]*\\)|\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\2/g' | grep -v '^$' | xclip -selection clipboard<CR>",
     { silent = true })
-        -- buffer_to_string() .. "\" | sed -e '/---/,/---/d' | sed -e 's/^\\#.*$//' | sed -e 's/\\[\\[[a-zA-Z0-9_\\. \\/]*|//g' | wc -w")
+-- buffer_to_string() .. "\" | sed -e '/---/,/---/d' | sed -e 's/^\\#.*$//' | sed -e 's/\\[\\[[a-zA-Z0-9_\\. \\/]*|//g' | wc -w")
 
 vim.keymap.set("v", "<leader>ol", ":ObsidianLinkNew<CR>")
 
@@ -101,7 +104,8 @@ local function getWords()
 
     local words = vim.fn.system(
         "echo \"" ..
-        buffer_to_string() .. "\" | sed -e '/---/,/---/d' | sed -e 's/^\\#.*$//' | sed -e 's/\\[\\[[a-zA-Z0-9_\\. \\/]*|//g' | wc -w")
+        buffer_to_string() ..
+        "\" | sed -e '/---/,/---/d' | sed -e 's/^\\#.*$//' | sed -e 's/\\[\\[[a-zA-Z0-9_\\. \\/]*|//g' | wc -w")
     return tonumber(words)
     -- return tostring(vim.fn.wordcount().words - subtract)--..','.. tostring(subtract)
     -- return words
