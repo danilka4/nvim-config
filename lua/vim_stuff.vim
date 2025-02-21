@@ -67,7 +67,8 @@ function SetTexOptions()
         vnoremap <c-b> c\textbf{<c-r>"}<Esc>h
         " Turn into} figure
         vnoremap <Leader>f >><Esc>`<O\begin{figure}<Esc>`>o\caption{}<CR>\label{}<CR>\end{figure}<Esc>2k$
-        nnoremap <Leader>v :silent!!{zathura $(echo % \| sed 's/tex$/pdf/') --fork}<CR>
+        nnoremap <Leader>v :!zathura $(echo %:p \| sed 's/tex$/pdf/')* --fork<CR><CR>
+        nnoremap <Leader>V :!zathura $(echo %:p \| sed 's/tex$/pdf/')* --fork
         nnoremap <Leader>b :split ~/Documents/theory/sources.bib<cr>
         "inoremap ]] =<Esc>r'a
         au VimLeave * !latexmk -c %

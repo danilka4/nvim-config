@@ -84,7 +84,7 @@ vim.keymap.set("n", "<leader>oc",
         "| pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | xclip -selection clipboard")
         -- Adds to anki csv
         vim.cmd(initial_cat(name) ..
-        "| pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | anki_add.py")
+            "| pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | anki_add.py")
     end,
     { silent = true })
 vim.keymap.set("n", "<leader>ot", function()
@@ -101,7 +101,7 @@ vim.keymap.set("v", "<leader>ol", ":ObsidianLinkNew<CR>")
 
 local buffer_to_string = function()
     local content = vim.api.nvim_buf_get_lines(0, 0, vim.api.nvim_buf_line_count(0), false)
-    return table.concat(content, "\n")
+    return string.gsub(table.concat(content, "\n"), '"', '')
 end
 
 local function getWords()
@@ -116,7 +116,7 @@ local function getWords()
     local words = vim.fn.system(
         "echo \"" ..
         buffer_to_string() ..
-        "\" | sed -e '/---/,/---/d' | sed -e 's/^\\#.*$//' | sed -e 's/\\[\\[[a-zA-Z0-9_\\. \\/]*|//g' | wc -w")
+        "\" | sed -e '/---/,/---/d' | sed -e 's/^\\#.*$//' | sed -e 's/\\[\\[[^|]*|//g' | wc -w")
     return tonumber(words)
     -- return tostring(vim.fn.wordcount().words - subtract)--..','.. tostring(subtract)
     -- return words

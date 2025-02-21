@@ -208,7 +208,7 @@ require("lazy").setup({
             --     use_path_only = true
             -- },
             note_id_func = function(title)
-                return title
+                return title:lower()
                 --:gsub(" ", "_")
             end,
             note_frontmatter_func = function(note)
