@@ -91,7 +91,7 @@ vim.keymap.set("n", "<leader>ot", function()
         local name = vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
         vim.cmd("!cat " ..
             name ..
-            " | sed 's/\\\\\\(.\\){\\(.\\)}/\\2/g' | sed -e '/---/,/---/d' | sed -e 's/^\\#.*$//' | sed -e 's/^$//' | sed 's/\\[\\[\\([a-zA-Z0-9_\\. \\/]*\\)|\\([pt]\\),\\([a-zA-Z0-9 -,-]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\\\cite\\2[\\3]{\\4}/g' | sed 's/\\[\\[\\([^|]*\\)|\\([^|]*\\)\\]\\]/\\2/g' | grep -v '^$' | xclip -selection clipboard")
+            " | sed -e '/---/,/---/d' | sed -e 's/^\\#.*$//' | sed -e 's/^$//' | sed 's/\\[\\[\\([a-zA-Z0-9_\\. \\/]*\\)|\\([pt]\\),\\([a-zA-Z0-9 -,-]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\\\cite\\2[\\3]{\\4}/g' | sed 's/\\[\\[\\([^|]*\\)|\\([^|]*\\)\\]\\]/\\2/g' | grep -v '^$' | xclip -selection clipboard")
     end,
     { silent = true })
 
