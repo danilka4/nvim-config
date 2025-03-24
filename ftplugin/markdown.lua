@@ -81,10 +81,10 @@ vim.keymap.set("n", "<leader>oc",
         local name = vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
         -- Adds to clipboard
         vim.cmd(initial_cat(name) ..
-        "| pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | xclip -selection clipboard")
+        "| pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | sed -e 's/\\\\//g' | xclip -selection clipboard")
         -- Adds to anki csv
         vim.cmd(initial_cat(name) ..
-            "| pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | anki_add.py")
+            "| pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | sed -e 's/\\\\//g' | anki_add.py")
     end,
     { silent = true })
 vim.keymap.set("n", "<leader>ot", function()
