@@ -1,7 +1,3 @@
-local silent = { silent = true }
-
-local vim = vim
-
 -- sets leader to space
 vim.g.mapleader = " "
 
@@ -66,16 +62,6 @@ end)
 --     callback = function() ts_r.open_term() end,
 -- })
 
-require'toggleterm'.setup{}
-
-local Terminal = require("toggleterm.terminal").Terminal
-local lazygit = Terminal:new({cmd = "lazygit", hidden = true, dir="git_dir",direction = "float"})
-
-function _lazygit_toggle()
-  lazygit:toggle()
-end
-
-vim.keymap.set("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>")
 -- vim.keymap.set("i", "]]", "a<Esc>r'a")
 
 -- vim.keymap.set("n", "<leader>wq", "<c-w>s:e ~/Documents/theory/wiki/index.md<CR>")

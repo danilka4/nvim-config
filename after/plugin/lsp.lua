@@ -62,19 +62,6 @@ require('mason-lspconfig').setup_handlers({
 --})
 -- -v, --verbosity...     Increase message verbosity (-vvvv for max verbosity)
 
-require('lsp-zero')
-require 'lspconfig'.texlab.setup {
-    cmd = { 'texlab', '-vvvv' },
-    settings = {
-        texlab = {
-            formatterLineLength = -1,
-            diagnostics = {
-                ignoredPatterns = { 'Unused label' }
-            }
-        }
-    }
-}
-
 local function obtainWords(file)
     local dict = {}
     local f = io.open(file, "r")
@@ -87,38 +74,9 @@ local function obtainWords(file)
     f:close()
     return dict
 end
-require 'lspconfig'.ltex.setup {
-    settings = {
-        ltex = {
-            -- dictionary = { ['en-US'] = obtainWords('/home/lizzy/.config/nvim/spell/en.utf-8.add') }
-            disabledRules = { ['en-US'] = { 'NUMBERS_IN_WORDS', 'MORFOLOGIK_RULE_EN_US', 'UPPERCASE_SENTENCE_START', 'EN_UNPAIRED_BRACKETS', 'UNLIKELY_OPENING_PUNCTUATION', 'COMMA_PARENTHESIS_WHITESPACE' } },
-            -- enabled = {'latex'}
-            enabled = { 'tex', 'latex' }
-        },
-    },
-}
 
-require 'lspconfig'.lua_ls.setup {
-    settings = {
-        Lua = {
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = {
-                    'vim',
-                    'require'
-                },
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-                enable = false,
-            },
-        },
-    },
-}
+-- require 'lspconfig'.lua_ls.setup {
+-- }
 
 
 local cmp = require 'cmp'
@@ -155,19 +113,19 @@ cmp.setup({
     }
 })
 
-require("cmp_dictionary").setup({
-    -- The following are default values.
-    exact_length = 2,
-    first_case_insensitive = false,
-    async = false,
-    --sqlite = true,
-    max_number_items = -1,
-    debug = false,
-    filetype = {
-        md = "/home/lizzy/Documents/latex/authors.dict",
-        vimwiki = "/home/lizzy/Documents/latex/authors.dict",
-    },
-})
+-- require("cmp_dictionary").setup({
+--     -- The following are default values.
+--     exact_length = 2,
+--     first_case_insensitive = false,
+--     async = false,
+--     --sqlite = true,
+--     max_number_items = -1,
+--     debug = false,
+--     filetype = {
+--         md = "/home/lizzy/Documents/latex/authors.dict",
+--         vimwiki = "/home/lizzy/Documents/latex/authors.dict",
+--     },
+-- })
 
 cmp.setup.cmdline('/', {
     sources = {
