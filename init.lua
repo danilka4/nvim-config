@@ -5,3 +5,23 @@ require "options"
 require "lazy-nvim"
 require "keybinds"
 vim.cmd('source ~/.config/nvim/lua/vim_stuff.vim')
+
+vim.lsp.config('*', {
+  capabilities = {
+    textDocument = {
+      semanticTokens = {
+        multilineTokenSupport = true,
+      }
+    }
+  },
+  root_markers = { '.git' },
+})
+
+local configs = {}
+
+for _, v in ipairs(vim.api.nvim_get_runtime_file('lsp/*', true)) do 
+  local name = vim.fn.fnamemodify(v, ':t:r')
+  configs[name] = true
+end
+
+vim.lsp.enable(vim.tbl_keys(configs))

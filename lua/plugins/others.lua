@@ -1,6 +1,12 @@
 return {
 
     -- Trouble for quickfix
+    {'williamboman/mason.nvim',
+        config = function ()
+            require("mason").setup()
+        end
+    },
+   'williamboman/mason-lspconfig.nvim',
     'folke/trouble.nvim',
     {
         "folke/todo-comments.nvim",
