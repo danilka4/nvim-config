@@ -1,7 +1,7 @@
 vim.opt.spell = true
 vim.opt.spelllang = 'en_us'
 vim.cmd("set spellsuggest+=20")
-vim.cmd("UltiSnipsAddFiletypes markdown")
+-- vim.cmd("UltiSnipsAddFiletypes markdown")
 
 local function colon()
     vim.cmd("normal! $")

@@ -3,9 +3,9 @@
 
 
 "Trigger configuration
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="'"
-let g:UltiSnipsJumpBackwardTrigger="//"
+"let g:UltiSnipsExpandTrigger="<tab>"
+"let g:UltiSnipsJumpForwardTrigger="'"
+"let g:UltiSnipsJumpBackwardTrigger="//"
 
 "
 " general stuff

@@ -5,6 +5,7 @@ require "options"
 require "lazy-nvim"
 require "keybinds"
 vim.cmd('source ~/.config/nvim/lua/vim_stuff.vim')
+require "autocmds"
 
 vim.lsp.config('*', {
   capabilities = {

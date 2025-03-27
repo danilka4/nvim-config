@@ -1,5 +1,9 @@
 return {
   'saghen/blink.cmp',
+    dependencies = {
+        'SirVer/ultisnips',
+        'L3MON4D3/LuaSnip',
+    },
   -- optional: provides snippets for the snippet source
   -- dependencies = { 'rafamadriz/friendly-snippets' },
 
@@ -7,17 +11,6 @@ return {
   version = "1.*",
 
   opts = {
-    -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
-    -- 'super-tab' for mappings similar to vscode (tab to accept)
-    -- 'enter' for enter to accept
-    -- 'none' for no mappings
-    -- All presets have the following mappings:
-    -- C-space: Open menu or open docs if already open
-    -- C-n/C-p or Up/Down: Select next/previous item
-    -- C-e: Hide menu
-    -- C-k: Toggle signature help (if signature.enabled = true)
-    --
-    -- See :h blink-cmp-config-keymap for defining your own keymap
     keymap = { preset = 'super-tab' },
 
     appearance = {
@@ -31,8 +24,13 @@ return {
 
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
+    snippets = {preset = 'luasnip'},
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer' },
+      default = {
+                -- 'obsidian',
+                -- 'obsidian_new',
+                -- 'obsidian_tags',
+                'snippets', 'lsp', 'path', 'buffer', },
     },
 
     -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance

@@ -1,6 +1,7 @@
 return {
-        "epwalsh/obsidian.nvim",
-        version = "*",
+        "obsidian-nvim/obsidian.nvim",
+        -- commit = "658f548",
+        -- version = "*",
         lazy = true,
         ft = "markdown",
         dependencies = {
@@ -64,7 +65,7 @@ return {
             end,
             completion = {
                 -- Set to false to disable completion.
-                nvim_cmp = true,
+                blink = true,
                 -- Trigger completion at 2 chars.
                 min_chars = 2,
             },
