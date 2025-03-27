@@ -23,7 +23,12 @@ return {
             -- keymaps for navigating editable regions
             -- jump down
             vim.keymap.set({ "i", "s" }, char, function()
+                if ls.jumpable() then
                     ls.jump(1)
+            else
+                -- vim.api.nvim_put({"'"}, "", true, true)
+                vim.api.nvim_paste("'", false, -1)
+            end
             end, { silent = true })
 
             -- jump up
