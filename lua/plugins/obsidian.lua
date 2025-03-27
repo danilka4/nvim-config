@@ -32,6 +32,15 @@ return {
                 return title:lower()
                 --:gsub(" ", "_")
             end,
+            -- note_path_func = function(spec)
+            --     -- This is equivalent to the default behavior.
+            --     local title = tostring(spec.id)
+            --     title = title:gsub(" ", "_")
+            --     title = title:gsub("'", "")
+            --     title = title:lower()
+            --     local path = spec.dir / title
+            --     return path:with_suffix(".md")
+            -- end,
             note_frontmatter_func = function(note)
                 -- Add the title of the note as an alias.
                 -- if note.title then
