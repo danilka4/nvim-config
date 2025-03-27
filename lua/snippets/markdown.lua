@@ -6,9 +6,9 @@ local fmt = require("luasnip.extras.fmt").fmt
 local rep = extras.rep
 
 ls.add_snippets("markdown", {
-    s("link", fmt("[{}]({})", { rep(1), i(1) })),
-    s("image", fmt("![]({})", { i(1) })),
-    s("comment", fmt("<!-- {} -->{}", { i(1), i(0) })),
-    s("<--", fmt("<!-- {} -->{}", { i(1), i(0) })),
+    -- s("link", fmt("[{}]({})", { rep(1), i(1) })),
+    -- s("image", fmt("![]({})", { i(1) })),
+    -- s("comment", fmt("<!-- {} -->{}", { i(1), i(0) })),
+    -- s("<--", fmt("<!-- {} -->{}", { i(1), i(0) })),
     s("cite", fmt("[[{}|{},{},{}]]{}", {i(1), i(2), i(3), rep(1), i(0)}))
 })
