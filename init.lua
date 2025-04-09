@@ -48,3 +48,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set({'n', 'x'}, 'gq', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
   end,
 })
+vim.diagnostic.config({ virtual_text = true })
