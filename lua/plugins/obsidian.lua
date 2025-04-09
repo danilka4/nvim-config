@@ -1,6 +1,6 @@
 return {
         "obsidian-nvim/obsidian.nvim",
-        -- commit = "658f548",
+        -- commit = "3703ea61c9838d090dff4b43c4d80df97c01c3b9",
         -- version = "*",
         lazy = true,
         ft = "markdown",
@@ -21,9 +21,10 @@ return {
             },
             new_notes_location = "notes_subdir",
 
-            wiki_link_func = function(opts)
-                return require("obsidian.util").wiki_link_path_prefix(opts)
-            end,
+            wiki_link_func = "prepend_note_path",
+            -- function(opts)
+            --     return require("obsidian.util").wiki_link_path_prefix(opts)
+            -- end,
             -- completion = {
             --     prepend_note_path = true,
             --     use_path_only = true

@@ -9,7 +9,7 @@ return {
   -- dependencies = { 'rafamadriz/friendly-snippets' },
 
   -- use a release tag to download pre-built binaries
-  version = "1.*",
+  version = "1.1.1",
 
   opts = {
     keymap = { preset = 'super-tab' },
@@ -92,6 +92,9 @@ return {
     -- See the fuzzy documentation for more information
     fuzzy = {
             implementation = "prefer_rust_with_warning",
+        prebuilt_binaries = {
+                download = true,
+            },
       sorts = {
         function(a, b)
           local sort = require('blink.cmp.fuzzy.sort')
