@@ -19,12 +19,12 @@ return {
                     rmd = { "r", "tex" },
                     cuda = { "c" },
                 }),
+                exit_roots = true,
             })
             -- keymaps for navigating editable regions
             -- jump down
             vim.keymap.set({ "i", "s" }, char, function()
-                vim.print(ls.in_snippet())
-                if ls.in_snippet() then
+                if ls.locally_jumpable(1) then
                     ls.jump(1)
             else
                 -- vim.api.nvim_put({"'"}, "", true, true)
