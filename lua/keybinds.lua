@@ -36,7 +36,7 @@ vim.keymap.set('t', '<c-l>', '<c-\\><c-n><c-w>l')
 
 vim.keymap.set('n', '<Leader>ff', "<Cmd> lua require('telescope.builtin').find_files( { cwd = vim.fn.expand('%:p:h') })<cr>")
 
-vim.keymap.set('n', '<Leader>fF', '<Cmd>lua require("telescope.builtin").find_files()<cr>')
+vim.keymap.set('n', '<Leader>fF', '<Cmd>lua require("telescope.builtin").live_grep()<cr>')
 vim.keymap.set('n', '<Leader>fg', '<Cmd>Telescope git_files<cr>')
 vim.keymap.set('n', '<Leader>fb', '<Cmd>lua require("telescope.builtin").live_grep({cwd="/home/lizzy/Documents/theory/", glob_pattern="sources.bib", disable_coordinates=true, use_regex=true, default_text="@.*\\\\{",path_display = function() return "" end})<cr>')
 vim.keymap.set('n', '<Leader>fw', '<Cmd>lua require("telescope.builtin").live_grep()<cr>')

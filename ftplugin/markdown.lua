@@ -76,8 +76,18 @@ local function initial_cat(name)
         name ..
         " | sed 's/\\\\\\(.\\){\\(.\\)}/\\2/g' | sed 's/\\[\\[\\([a-zA-Z0-9_\\. \\/]*\\)|t,\\([a-zA-Z0-9_ -,-]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/@\\3[\\2]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|p,,\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\2\\]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|\\([a-zA-Z0-9_ ]*\\),\\([a-zA-Z0-9_ -,-]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\4, \\3 \\]/g' | sed 's/\\[\\[\\([^|]*\\)|\\([^|]*\\)\\]\\]/\\2/g'"
 end
+
+vim.keymap.set("n", "<c-s>", '<c-w>s<c-w>k:ObsidianFollowLink<CR>'
+)
+
+
 vim.keymap.set("n", "<leader>oc",
     function()
+        local lc = vim.api.nvim_buf_line_count(0)
+        if lc > 20 then
+            vim.print("Buffer too big")
+            return
+        end
         local name = vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
         -- Adds to clipboard
         vim.cmd(initial_cat(name) ..

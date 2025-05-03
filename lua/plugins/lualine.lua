@@ -43,7 +43,7 @@ return {
     {
         'nvim-lua/lsp-status.nvim', -- Adds LSP to lualine
         dependencies = {
-            'neovim/nvim-lspconfig',
+            -- 'neovim/nvim-lspconfig',
             'nvim-lualine/lualine.nvim'
         }
     },
