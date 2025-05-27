@@ -8,6 +8,6 @@ return {
             }
         }
     },
-    filetypes = { 'tex' }
+    filetypes = { 'tex', 'bib' }
 }
 

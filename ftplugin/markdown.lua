@@ -91,10 +91,10 @@ vim.keymap.set("n", "<leader>oc",
         local name = vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
         -- Adds to clipboard
         vim.cmd(initial_cat(name) ..
-        "| pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | sed -e 's/\\\\//g' | xclip -selection clipboard")
+            "| pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | sed -e 's/\\\\//g' | sed -e 's/\\*//g' | xclip -selection clipboard")
         -- Adds to anki csv
         vim.cmd(initial_cat(name) ..
-            "| pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | sed -e 's/\\\\//g' | anki_add.py")
+            "| pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | sed -e 's/\\\\//g' | sed -e 's/\\*//g' | anki_add.py")
     end,
     { silent = true })
 vim.keymap.set("n", "<leader>ot", function()
@@ -111,7 +111,8 @@ vim.keymap.set("v", "<leader>ol", ":ObsidianLinkNew<CR>")
 
 local buffer_to_string = function()
     local content = vim.api.nvim_buf_get_lines(0, 0, vim.api.nvim_buf_line_count(0), false)
-    return string.gsub(table.concat(content, "\n"), '"', '')
+    return string.gsub(string.gsub(string.gsub(string.gsub(table.concat(content, "\n"), '"', ''), '$', ''), '\\', ''),
+        '^', '')
 end
 
 local function getWords()
@@ -175,3 +176,17 @@ require('lualine').setup {
     inactive_winbar = {},
     extensions = {},
 }
+
+vim.keymap.set("n", "<Leader>on", function()
+    local feed_desc = require("feed").get_entry()
+    local title = feed_desc["title"]
+    local url = feed_desc["link"]
+    if feed_desc["author"] ~= nil then
+        local author = feed_desc["author"]
+    else
+        local author = feed_desc["feed"]
+    end
+    local time = feed_desc["time"]     -- Unix based time
+    local year = os.date("%Y", time)   -- Extracts year from unix
+    vim.print(feed_desc)
+end)

@@ -97,3 +97,6 @@ end, { desc = "Previous todo comment" })
 -- Comment keybinds
 vim.keymap.set("n", "<leader>/", "gcc", {remap = true})
 vim.keymap.set("v", "<leader>/", "gcgv", {remap = true})
+
+
+vim.keymap.set("n", "<Leader>or", ":Feed index<CR>")

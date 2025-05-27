@@ -76,7 +76,7 @@ function SetTexOptions()
         au VimLeave * !rm *.xdv
         au VimLeave * !rm *.snm
         au VimLeave * !rm *.nav
-        au VimEnter * call jobstart("grep '^@' $HOME/Documents/theory/sources.bib | cut -d '{' -f2 | cut -d ',' -f1 > $HOME/Documents/latex/authors.dict")
+        "au VimEnter * call jobstart("grep '^@' $HOME/Documents/theory/sources.bib | cut -d '{' -f2 | cut -d ',' -f1 > $HOME/Documents/latex/authors.dict")
     nnoremap <leader>ej :vsplit ~/.config/nvim/UltiSnips/tex.snippets<CR>
     nnoremap <leader>ek :split ~/.local/share/nvim/plugins/plugged/vim-snippets/UltiSnips/tex.snippets<CR><CR>
     "nnoremap <Leader>w :call Word_count()<CR>
