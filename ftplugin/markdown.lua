@@ -237,5 +237,12 @@ vim.keymap.set("n", "<Leader>on", function()
         vim.api.nvim_feedkeys('iecho "' .. entry .. '" | tha stdin ', "n", false)
     else
         -- Must find associated key to file
+        local handle_find_key = io.popen('sh title_bibkey.sh "' .. title .. '"')
+        if handle_find_key == nil then
+            vim.print("Can't find key")
+            return 1
+        end
+        local bib_path = handle_find_key:read("*a")
+        vim.cmd("tabnew " .. bib_path)
     end
 end)
