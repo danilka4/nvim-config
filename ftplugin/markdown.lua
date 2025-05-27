@@ -177,16 +177,65 @@ require('lualine').setup {
     extensions = {},
 }
 
+-- Opens notes associated with RSS feed and potentially add to bib if doesn't exist
+
+local bib_format = [[@online{heheheha,
+    title = {%s},
+    author = {%s},
+    publisher = {%s},
+    url = {%s},
+    month = {%d},
+    year = {%d},
+}]]
+
 vim.keymap.set("n", "<Leader>on", function()
     local feed_desc = require("feed").get_entry()
+
     local title = feed_desc["title"]
-    local url = feed_desc["link"]
-    if feed_desc["author"] ~= nil then
-        local author = feed_desc["author"]
-    else
-        local author = feed_desc["feed"]
+
+    -- Checks for existence
+    local handle = io.popen('grep -c "{' .. title .. '}" ~/Documents/theory/sources.bib')
+    if handle == nil then
+        vim.print("Can't grep for some reason")
+        return 1
     end
-    local time = feed_desc["time"]     -- Unix based time
-    local year = os.date("%Y", time)   -- Extracts year from unix
-    vim.print(feed_desc)
+    local count_instances = handle:read("*a")
+    -- vim.print("'" .. count_instances .. "'")
+
+    -- If title doesn't exist in bibliography
+    if count_instances == "0\n" then
+        -- Sets up citation
+        local url = feed_desc["link"]
+        -- Gets publisher from url hopefully
+        local feed_url = feed_desc["feed"]
+        local _, start = string.find(feed_url, "://")
+        local finish, _ = string.find(feed_url, "%.")
+        start = start + 1
+        finish = finish - 1
+        local publisher = string.sub(feed_url, start, finish)
+
+        -- Gets author if exists
+        local author = ""
+        if feed_desc["author"] ~= nil then
+            author = feed_desc["author"]
+        else
+            -- Do weird stuff with the url as author if placeholder
+            author = publisher
+        end
+        local time = feed_desc["time"]    -- Unix based time
+        local month = os.date("%m", time) -- Extracts year from unix
+        local year = os.date("%Y", time)  -- Extracts year from unix
+        if author == "crimethinc" then
+            author = "{CrimethInc. Ex-Workers Collective}"
+            publisher = "CrimethInc."
+        end
+        local entry = string.format(bib_format,
+            title, author, publisher, url, month, year)
+        -- Adds new
+        vim.cmd("tabnew")
+        vim.cmd("term")
+        vim.api.nvim_feedkeys('iecho "' .. entry .. '" | tha stdin ', "n", false)
+    else
+        -- Must find associated key to file
+    end
 end)
