@@ -48,7 +48,10 @@ return {
                 --     note:add_alias(note.title)
                 -- end
 
-                local out = { id = note.id, aliases = note.aliases, tags = note.tags }
+                -- date_created chooses today if non-existent
+                local out = { id = note.id, aliases = note.aliases, tags = note.tags, date_created = note.date_created or os.date("%Y-%m-%d") }
+
+                -- Adds a wip tag if doesn't exist
                 if #note.tags == 0 then
                     table.insert(out.tags, "wip")
                 end
