@@ -93,6 +93,14 @@ vim.keymap.set("n", "<leader>oc",
         vim.cmd(initial_cat(name) ..
             "| pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | sed -e 's/\\\\//g' | sed -e 's/\\*//g' | xclip -selection clipboard")
         -- Adds to anki csv
+        local note_info = require("obsidian.note").from_buffer(0)
+        for _, v in pairs(note_info) do
+            if v ~= "w" then
+                vim.print("Compiled but didn't add to anki due to no 'w' tag written")
+                return
+            end
+        end
+        vim.print("Compiled and adding to anki")
         vim.cmd(initial_cat(name) ..
             "| pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | sed -e 's/\\\\//g' | sed -e 's/\\*//g' | anki_add.py")
     end,
@@ -228,6 +236,9 @@ vim.keymap.set("n", "<Leader>on", function()
         if author == "crimethinc" then
             author = "{CrimethInc. Ex-Workers Collective}"
             publisher = "CrimethInc."
+        end
+        if publisher == "ashevilleblade" then
+            publisher = "The Asheville Blade"
         end
         local entry = string.format(bib_format,
             title, author, publisher, url, month, year)
