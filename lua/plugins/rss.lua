@@ -4,7 +4,39 @@ return {
     cmd = "Feed",
     ---@module 'feed'
     ---@type feed.config
-    opts = {},
+    opts = {
+            -- keys = {
+            --     index = {
+            --         { "q",      "<cmd>Feed quit<cr>" },
+            --         { "?",      "<cmd>Feed hints<cr>" },
+            --         { ".",      "<cmd>Feed dot<cr>" },
+            --         { "u",      "<cmd>Feed undo<cr>" },
+            --         { "<C-r>",  "<cmd>Feed redo<cr>" },
+            --         { "<M-CR>", "<cmd>Feed split<cr>" },
+            --         { "b",      "<cmd>Feed browser<cr>" },
+            --         { "r",      "<cmd>Feed refresh<cr>" },
+            --         { "R",      "<cmd>Feed update<cr>" },
+            --         { "/",      "<cmd>Feed search<cr>" },
+            --         { "Y",      "<cmd>Feed yank_url<cr>" },
+            --         { "-",      "<cmd>Feed untag<cr>" },
+            --         { "+",      "<cmd>Feed tag<cr>" },
+            --         { "<cr>",   "<cmd>Feed entry<cr>" },
+            --     },
+            --     entry = {
+            --         { "q", "<cmd>Feed quit<cr>" },
+            --         { "?", "<cmd>Feed hints<cr>" },
+            --         { "Y", "<cmd>Feed yank_url<cr>" },
+            --         { "b", "<cmd>Feed browser<cr>" },
+            --         { "}", "<cmd>Feed next<cr>" },
+            --         { "{", "<cmd>Feed prev<cr>" },
+            --         { "/", "<cmd>Feed search<cr>" },
+            --         { "-", "<cmd>Feed untag<cr>" },
+            --         { "+", "<cmd>Feed tag<cr>" },
+            --         { "f", "<cmd>Feed full<cr>" },
+            --         { "r", "<cmd>Feed urlview<cr>" },
+            --     },
+            -- },
+    },
     config = function()
         require("feed").setup({
             feeds = {
@@ -19,12 +51,14 @@ return {
                 }
             },
             search = {
-                -- default_query = "@6-months-ago +unread ",
-                default_query = "@6-months-ago",
+                default_query = "@6-months-ago +unread ",
+                sort_order = "ascending",
+                -- default_query = "@6-months-ago",
             },
             zen = {
                 enabled = false,
             },
+
         })
     end,
 }
