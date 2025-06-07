@@ -83,11 +83,11 @@ vim.keymap.set("n", "<c-s>", '<c-w>s<c-w>k:ObsidianFollowLink<CR>'
 
 vim.keymap.set("n", "<leader>oc",
     function()
-        local lc = vim.api.nvim_buf_line_count(0)
-        if lc > 20 then
-            vim.print("Buffer too big")
-            return
-        end
+        -- local lc = vim.api.nvim_buf_line_count(0)
+        -- if lc > 20 then
+        --     vim.print("Buffer too big")
+        --     return
+        -- end
         local name = vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
         -- Adds to clipboard
         vim.cmd(initial_cat(name) ..
@@ -119,8 +119,7 @@ vim.keymap.set("v", "<leader>ol", ":ObsidianLinkNew<CR>")
 
 local buffer_to_string = function()
     local content = vim.api.nvim_buf_get_lines(0, 0, vim.api.nvim_buf_line_count(0), false)
-    return string.gsub(string.gsub(string.gsub(string.gsub(table.concat(content, "\n"), '"', ''), '$', ''), '\\', ''),
-        '^', '')
+    return table.concat(content, "\n"):gsub('"', ''):gsub('$', ''):gsub('\\', ''):gsub('^', ''):gsub("`", "")
 end
 
 local function getWords()
