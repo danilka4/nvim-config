@@ -14,6 +14,12 @@ return {
                         return false
                     end,
                 },
+                keymaps = {
+                    ['-'] = { "actions.parent", mode = "n" },
+                    ['g?'] = { "actions.show_help", mode = "n" },
+                    ["<CR>"] = "actions.select",
+                },
+                use_default_keymaps=false,
             })
         end
     }

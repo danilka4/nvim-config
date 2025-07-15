@@ -8,8 +8,9 @@ local M = {
 vim.defer_fn(function()
     require("nvim-treesitter.configs").setup({
         -- Add languages to be installed here that you want installed for treesitter
-        ensure_installed = {"lua", "markdown", "html", "xml", "r", "c"},
-        ignore_install = {"systemverilog"},
+        -- ensure_installed = {"lua", "markdown", "html", "xml", "r", "c"},
+        ensure_installed = {"lua"},
+        ignore_install = {"systemverilog", "markdown"},
 
         -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
         auto_install = true,

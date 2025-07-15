@@ -34,7 +34,11 @@ return {
 
             -- jump up
             vim.keymap.set({ "i", "s" }, "//", function()
+                if ls.locally_jumpable(1) then
                     ls.jump(-1)
+            else
+                vim.api.nvim_paste("//", false, -1)
+            end
             end, { silent = true })
 
             -- cycle choices

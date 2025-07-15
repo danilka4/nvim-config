@@ -53,8 +53,8 @@ vim.keymap.set("n", "O", function()
     vim.cmd('startinsert!')
 end)
 
-vim.keymap.set("n", "<leader>od", ":ObsidianTemplate default.md<CR>")
-vim.keymap.set("n", "<leader>ob", ":ObsidianBacklinks<CR>")
+vim.keymap.set("n", "<leader>od", ":Obsidian Template default.md<CR>")
+vim.keymap.set("n", "<leader>ob", ":Obsidian backlinks<CR>")
 vim.keymap.set("n", "<leader>of", function()
     local value = vim.inspect(vim.opt.colorcolumn:get())
     if value == "{}" then
@@ -70,14 +70,14 @@ vim.keymap.set("n", "<leader>og", function()
 end)
 vim.keymap.set("n", "<leader>ot", ":split ~/Documents/theory/wiki/todo.md<CR>")
 vim.keymap.set("n", "<leader>ow", "/#<CR>:nohlsearch<CR>jVGg<c-g>")
-vim.keymap.set("n", "<leader>ff", ":ObsidianQuickSwitch<CR>")
+vim.keymap.set("n", "<leader>ff", ":Obsidian quick_switch<CR>")
 local function initial_cat(name)
     return "!cat " ..
         name ..
         " | sed 's/\\\\\\(.\\){\\(.\\)}/\\2/g' | sed 's/\\[\\[\\([a-zA-Z0-9_\\. \\/]*\\)|t,\\([a-zA-Z0-9_ -,-]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/@\\3[\\2]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|p,,\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\2\\]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|\\([a-zA-Z0-9_ ]*\\),\\([a-zA-Z0-9_ -,-]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\4, \\3 \\]/g' | sed 's/\\[\\[\\([^|]*\\)|\\([^|]*\\)\\]\\]/\\2/g'"
 end
 
-vim.keymap.set("n", "<c-s>", '<c-w>s<c-w>k:ObsidianFollowLink<CR>'
+vim.keymap.set("n", "<c-s>", '<c-w>s<c-w>k:Obsidian follow_link<CR>'
 )
 
 
@@ -94,15 +94,15 @@ vim.keymap.set("n", "<leader>oc",
             "| pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | sed -e 's/\\\\//g' | sed -e 's/\\*//g' | xclip -selection clipboard")
         -- Adds to anki csv
         local note_info = require("obsidian.note").from_buffer(0)
-        for _, v in pairs(note_info) do
+        for _, v in pairs(note_info.tags) do
             if v ~= "w" then
                 vim.print("Compiled but didn't add to anki due to no 'w' tag written")
                 return
             end
         end
-        vim.print("Compiled and adding to anki")
         vim.cmd(initial_cat(name) ..
             "| pandoc -t markdown_strict --bibliography ~/Documents/theory/sources.bib --citeproc --columns 9999 2>/dev/null | sed -e 's/\\\\//g' | sed -e 's/\\*//g' | anki_add.py")
+        vim.print("Compiled and added to anki")
     end,
     { silent = true })
 vim.keymap.set("n", "<leader>ot", function()
@@ -115,7 +115,7 @@ vim.keymap.set("n", "<leader>ot", function()
 
 -- buffer_to_string() .. "\" | sed -e '/---/,/---/d' | sed -e 's/^\\#.*$//' | sed -e 's/\\[\\[[a-zA-Z0-9_\\. \\/]*|//g' | wc -w")
 
-vim.keymap.set("v", "<leader>ol", ":ObsidianLinkNew<CR>")
+vim.keymap.set("v", "<leader>ol", ":Obsidian link_new<CR>")
 
 local buffer_to_string = function()
     local content = vim.api.nvim_buf_get_lines(0, 0, vim.api.nvim_buf_line_count(0), false)
@@ -238,6 +238,8 @@ vim.keymap.set("n", "<Leader>on", function()
         end
         if publisher == "ashevilleblade" then
             publisher = "The Asheville Blade"
+        elseif publisher == "therealnews" then
+            publisher = "The Real News Network"
         end
         local entry = string.format(bib_format,
             title, author, publisher, url, month, year)

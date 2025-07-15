@@ -1,5 +1,7 @@
+-- vim.g.feed_debug = true
 return {
     "neo451/feed.nvim",
+    -- dir = '~/Documents/nvim/feed.nvim/',
     -- dir = "~/Documents/nvim/feed.nvim",
     cmd = "Feed",
     ---@module 'feed'
@@ -45,6 +47,9 @@ return {
                     "https://ashevilleblade.com/?feed=rss2",
                     "https://thefreeradical.org/rss/",
                     "https://www.madycast.com/feed",
+                    "https://unicornriot.ninja/feed/",
+                    "https://chuangcn.org/feed/",
+                    "https://therealnews.com/author/mel-buer/feed",
                 },
                 tea = {
                     "https://seventeahouse.com/feed/",
