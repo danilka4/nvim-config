@@ -46,7 +46,8 @@ return {
                     "https://crimethinc.com/feed",
                     "https://ashevilleblade.com/?feed=rss2",
                     "https://thefreeradical.org/rss/",
-                    "https://www.madycast.com/feed",
+                    -- "https://www.madycast.com/feed", -- This turned into Trans news network below \/
+                    "https://rss.beehiiv.com/feeds/ZwjrCnHCyS.xml", -- Trans news network
                     "https://unicornriot.ninja/feed/",
                     "https://chuangcn.org/feed/",
                     "https://therealnews.com/author/mel-buer/feed",
