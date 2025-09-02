@@ -161,10 +161,10 @@ return {
                     end
                     local content_table = {}
                     for line in file:lines() do
-                        vim.print(line)
+                        -- vim.print(line)
                         if line:find("%- %[ %]") then
                             table.insert(content_table, line)
-                            vim.print("added")
+                            -- vim.print("added")
                         end
                     end
                     file:close()

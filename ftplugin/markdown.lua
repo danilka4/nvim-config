@@ -18,11 +18,13 @@ vim.keymap.set("i", "<CR>", function()
     local cword = vim.fn.expand('<cWORD>')
     if cword == "*" then
         vim.cmd("normal! o* ")
-    elseif cword == "-" then
+    elseif cword == "-" or cword == "-[x]" then
         vim.cmd("normal! w")
-        if vim.fn.expand('<cWORD>') == "[" then
+        local next_word = vim.fn.expand('<cWORD>')
+        if next_word == "[" or next_word == "[x]" then
             vim.cmd("normal! o- [ ] ")
         else
+            vim.cmd("normal! b")
             vim.cmd("normal! o- ")
         end
     else
@@ -44,9 +46,11 @@ vim.keymap.set("n", "o", function()
         vim.cmd("normal! o* ")
     elseif cword == "-" then
         vim.cmd("normal! w")
-        if vim.fn.expand('<cWORD>') == "[" then
+        local next_word = vim.fn.expand('<cWORD>')
+        if next_word == "[" or next_word == "[x]" then
             vim.cmd("normal! o- [ ] ")
         else
+            vim.cmd("normal! b")
             vim.cmd("normal! o- ")
         end
     else
@@ -65,9 +69,11 @@ vim.keymap.set("n", "O", function()
         vim.cmd("normal! O* ")
     elseif cword == "-" then
         vim.cmd("normal! w")
-        if vim.fn.expand('<cWORD>') == "[" then
+        local next_word = vim.fn.expand('<cWORD>')
+        if next_word == "[" or next_word == "[x]" then
             vim.cmd("normal! O- [ ] ")
         else
+            vim.cmd("normal! b")
             vim.cmd("normal! O- ")
         end
     else
