@@ -159,9 +159,17 @@ return {
                         print("Error: Could not open file " .. filename)
                         return
                     end
-                    local content = file:read("*all")
+                    local content_table = {}
+                    for line in file:lines() do
+                        vim.print(line)
+                        if line:find("%- %[ %]") then
+                            table.insert(content_table, line)
+                            vim.print("added")
+                        end
+                    end
                     file:close()
-                    return string.match(content, "]]\n\n(.*)")
+                    local content = table.concat(content_table, "\n")
+                    return content
                 end
             },
         },
