@@ -1,3 +1,36 @@
+local function file_exists(name)
+    local f = io.open(name, "r")
+    if f ~= nil then
+        io.close(f)
+        return true
+    else return false end
+end
+local function yesterdate(current_date)
+                    local pattern = "(%d%d%d%d)-(%d%d)-(%d%d)"
+                    local year_str, month_str, day_str = string.match(current_date, pattern)
+                    local year = tonumber(year_str)
+                    local month = tonumber(month_str)
+                    local day = tonumber(day_str)
+                    local date_table = {
+                        year = year,
+                        month = month,
+                        day = day,
+                    }
+                    local time = os.time(date_table)
+                    time = time - 24 * 60 * 60
+                    local tries = 0
+                    local max_tries = 200
+                    while not file_exists("/home/lizzy/Documents/theory/daily/" .. os.date("%Y-%m-%d", time) .. ".md") and tries < max_tries do
+                        time = time - 24 * 60 * 60
+                        tries = tries + 1
+                    end
+                    if tries == max_tries then
+                        vim.print("Couldn't find previous date before this many days: " .. max_tries)
+                        return os.date("%Y-%m-%d", os.time() - 24*60*60*20)
+                    end
+                    return os.date("%Y-%m-%d", time)
+end
+
 return {
     "obsidian-nvim/obsidian.nvim",
     -- commit = "3703ea61c9838d090dff4b43c4d80df97c01c3b9",
@@ -112,41 +145,24 @@ return {
             time_format = "%H:%M",
             substitutions = {
                 yesterday = function(ctx)
-                    local function file_exists(name)
-                        local f = io.open(name, "r")
-                        if f ~= nil then
-                            io.close(f)
-                            return true
-                        else return false end
-                    end
-
                     local filename = ctx.destination_path.filename
-
-                    -- Use a pattern to match the date. Assumes a YYYY-MM-DD format.
-                    local pattern = "(%d%d%d%d)-(%d%d)-(%d%d)"
-                    local year_str, month_str, day_str = string.match(filename, pattern)
-                    local year = tonumber(year_str)
-                    local month = tonumber(month_str)
-                    local day = tonumber(day_str)
-                    local date_table = {
-                        year = year,
-                        month = month,
-                        day = day,
-                    }
-                    local time = os.time(date_table)
-                    time = time - 24 * 60 * 60
-                    local tries = 0
-                    local max_tries = 200
-                    while not file_exists("/home/lizzy/Documents/theory/daily/" .. os.date("%Y-%m-%d", time) .. ".md") and tries < max_tries do
-                        time = time - 24 * 60 * 60
-                        tries = tries + 1
-                    end
-                    if tries == max_tries then
-                        vim.print("Couldn't find previous date before this many days: " .. max_tries)
-                        return os.date("%Y-%m-%d", os.time() - 24*60*60*20)
-                    end
-                    return os.date("%Y-%m-%d", time)
+                    return yesterdate(filename)
                 end,
+                yesterday_text = function (ctx)
+                    local filename = ctx.destination_path.filename
+                    local yestername = yesterdate(filename)
+                    local pattern = "\\[\\[.*\\]\\]" -- Replace with your actual regex pattern
+
+                    local file = io.open("/home/lizzy/Documents/theory/daily/" .. yestername .. ".md", "r")
+
+                    if not file then
+                        print("Error: Could not open file " .. filename)
+                        return
+                    end
+                    local content = file:read("*all")
+                    file:close()
+                    return string.match(content, "]]\n\n(.*)")
+                end
             },
         },
         footer = {
