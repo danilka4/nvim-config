@@ -21,6 +21,18 @@ return {
             },
         },
         new_notes_location = "notes_subdir",
+        daily_notes = {
+            folder = "daily",
+            template = "daily",
+            default_tags = {},
+            alias_format = "%Y-%m-%d",
+        },
+
+        checkbox = {
+            enabled = true,
+            create_new = true,
+            order = { " ", "x" },
+        },
 
         wiki_link_func = "prepend_note_path",
         -- function(opts)
@@ -98,6 +110,44 @@ return {
             subdir = "templates",
             date_format = "%Y-%m-%d-%a",
             time_format = "%H:%M",
+            substitutions = {
+                yesterday = function(ctx)
+                    local function file_exists(name)
+                        local f = io.open(name, "r")
+                        if f ~= nil then
+                            io.close(f)
+                            return true
+                        else return false end
+                    end
+
+                    local filename = ctx.destination_path.filename
+
+                    -- Use a pattern to match the date. Assumes a YYYY-MM-DD format.
+                    local pattern = "(%d%d%d%d)-(%d%d)-(%d%d)"
+                    local year_str, month_str, day_str = string.match(filename, pattern)
+                    local year = tonumber(year_str)
+                    local month = tonumber(month_str)
+                    local day = tonumber(day_str)
+                    local date_table = {
+                        year = year,
+                        month = month,
+                        day = day,
+                    }
+                    local time = os.time(date_table)
+                    time = time - 24 * 60 * 60
+                    local tries = 0
+                    local max_tries = 200
+                    while not file_exists("/home/lizzy/Documents/theory/daily/" .. os.date("%Y-%m-%d", time) .. ".md") and tries < max_tries do
+                        time = time - 24 * 60 * 60
+                        tries = tries + 1
+                    end
+                    if tries == max_tries then
+                        vim.print("Couldn't find previous date before this many days: " .. max_tries)
+                        return os.date("%Y-%m-%d", os.time() - 24*60*60*20)
+                    end
+                    return os.date("%Y-%m-%d", time)
+                end,
+            },
         },
         footer = {
             enabled = false,

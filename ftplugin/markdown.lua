@@ -16,8 +16,15 @@ vim.keymap.set("i", "<CR>", function()
     local has_colon = colon()
     vim.cmd("normal! ^")
     local cword = vim.fn.expand('<cWORD>')
-    if cword == "*" or cword == "-" then
+    if cword == "*" then
         vim.cmd("normal! o* ")
+    elseif cword == "-" then
+        vim.cmd("normal! w")
+        if vim.fn.expand('<cWORD>') == "[" then
+            vim.cmd("normal! o- [ ] ")
+        else
+            vim.cmd("normal! o- ")
+        end
     else
         vim.cmd("normal! o")
     end
@@ -31,8 +38,17 @@ vim.keymap.set("n", "o", function()
     local has_colon = colon()
     vim.cmd("normal! ^")
     local cword = vim.fn.expand('<cWORD>')
-    if cword == "*" or cword == "-" then
+    vim.print("cword is " .. cword)
+    if cword == "*" then
+        vim.print("grrr")
         vim.cmd("normal! o* ")
+    elseif cword == "-" then
+        vim.cmd("normal! w")
+        if vim.fn.expand('<cWORD>') == "[" then
+            vim.cmd("normal! o- [ ] ")
+        else
+            vim.cmd("normal! o- ")
+        end
     else
         vim.cmd("normal! o")
     end
@@ -45,15 +61,22 @@ end)
 vim.keymap.set("n", "O", function()
     vim.cmd("normal! ^")
     local cword = vim.fn.expand('<cWORD>')
-    if cword == "*" or cword == "-" then
+    if cword == "*" then
         vim.cmd("normal! O* ")
+    elseif cword == "-" then
+        vim.cmd("normal! w")
+        if vim.fn.expand('<cWORD>') == "[" then
+            vim.cmd("normal! O- [ ] ")
+        else
+            vim.cmd("normal! O- ")
+        end
     else
         vim.cmd("normal! O")
     end
     vim.cmd('startinsert!')
 end)
 
-vim.keymap.set("n", "<leader>od", ":Obsidian Template default.md<CR>")
+vim.keymap.set("n", "<leader>od", ":Obsidian today<CR>")
 vim.keymap.set("n", "<leader>ob", ":Obsidian backlinks<CR>")
 vim.keymap.set("n", "<leader>of", function()
     local value = vim.inspect(vim.opt.colorcolumn:get())
@@ -74,7 +97,7 @@ vim.keymap.set("n", "<leader>ff", ":Obsidian quick_switch<CR>")
 local function initial_cat(name)
     return "!cat " ..
         name ..
-        " | sed 's/\\\\\\(.\\){\\(.\\)}/\\2/g' | sed 's/\\[\\[\\([a-zA-Z0-9_\\. \\/]*\\)|t,\\([a-zA-Z0-9_ -,-]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/@\\3[\\2]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|p,,\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\2\\]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|\\([a-zA-Z0-9_ ]*\\),\\([a-zA-Z0-9_ -,-]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\4, \\3 \\]/g' | sed 's/\\[\\[\\([^|]*\\)|\\([^|]*\\)\\]\\]/\\2/g'"
+        " | sed 's/\\\\\\(.\\){\\(.\\)}/\\2/g' | sed 's/\\[\\[\\([a-zA-Z0-9_\\. \\/]*\\)|t,\\([a-zA-Z0-9_ -,:-]*\\),\\([a-zA-Z0-9_ ]*\\)\\]\\]/@\\3[\\2]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ \\/\\.]*\\)|p,,\\([a-zA-Z0-9_ ]*\\)\\]\\]/\\[@\\2\\]/g' | sed 's/\\[\\[\\([a-zA-Z0-9_ :\\/\\.]*\\)|\\([a-zA-Z0-9_: ]*\\),\\([a-zA-Z0-9_ -:,-]*\\),\\([a-zA-Z0-9_: ]*\\)\\]\\]/\\[@\\4, \\3 \\]/g' | sed 's/\\[\\[\\([^|]*\\)|\\([^|]*\\)\\]\\]/\\2/g'"
 end
 
 vim.keymap.set("n", "<c-s>", '<c-w>s<c-w>k:Obsidian follow_link<CR>'
