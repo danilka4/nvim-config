@@ -40,9 +40,9 @@ vim.keymap.set("n", "o", function()
     local has_colon = colon()
     vim.cmd("normal! ^")
     local cword = vim.fn.expand('<cWORD>')
-    vim.print("cword is " .. cword)
+    -- vim.print("cword is " .. cword)
     if cword == "*" then
-        vim.print("grrr")
+        -- vim.print("grrr")
         vim.cmd("normal! o* ")
     elseif cword == "-" then
         vim.cmd("normal! w")

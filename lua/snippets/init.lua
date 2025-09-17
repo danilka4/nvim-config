@@ -2,7 +2,7 @@ local function load_snippets()
     local snippet_files = {
         -- "all",
         -- "lua",
-        -- "tex",
+        "tex",
         -- "r",
         -- "rmd",
         -- "go",
