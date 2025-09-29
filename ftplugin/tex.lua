@@ -58,3 +58,4 @@ vim.api.nvim_create_autocmd("BufWritePost", {
         })
     end
 })
+vim.g.tex_flavor = "latex" 

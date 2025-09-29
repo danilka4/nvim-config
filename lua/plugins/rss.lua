@@ -51,6 +51,7 @@ return {
                     "https://unicornriot.ninja/feed/",
                     "https://chuangcn.org/feed/",
                     "https://therealnews.com/author/mel-buer/feed",
+                    -- "https://enlacezapatista.ezln.org.mx/feed/",
                 },
                 tea = {
                     "https://seventeahouse.com/feed/",

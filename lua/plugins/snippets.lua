@@ -12,6 +12,7 @@ return {
 
             -- plugin setup
             ls.setup({
+                enable_autosnippets = true,
                 -- load snippets defined for other languages
                 -- TODO: fix this
                 load_ft_func = require("luasnip.extras.filetype_functions").extend_load_ft({

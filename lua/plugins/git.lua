@@ -3,7 +3,8 @@ return {
         "tpope/vim-fugitive",
         config = function()
             -- vim.keymap.set("n", "<leader>ga", ":Git add %<CR>", { desc = "Git add current file" })
-            vim.keymap.set("n", "<leader>ga", ":Git add -A<CR>", { desc = "Git add and commit all files" })
+            vim.keymap.set("n", "<leader>ga", ":Git add %<CR>", { desc = "Git add and commit all files" })
+            vim.keymap.set("n", "<leader>gA", ":Git add -A<CR>", { desc = "Git add and commit all files" })
             vim.keymap.set("n", "<leader>gc", ":Git commit<CR>", { desc = "Git add and commit all files" })
             vim.keymap.set("n", "<leader>gp", ":Git push<CR>", { desc = "Git push" })
             -- vim.keymap.set("n", "<leader>gc", ":Git commit --no-verify<CR>", { desc = "Git commit" })

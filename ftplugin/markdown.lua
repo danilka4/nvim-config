@@ -265,10 +265,14 @@ vim.keymap.set("n", "<Leader>on", function()
             author = "{CrimethInc. Ex-Workers Collective}"
             publisher = "CrimethInc."
         end
+
+        -- publisher
         if publisher == "ashevilleblade" then
             publisher = "The Asheville Blade"
         elseif publisher == "therealnews" then
             publisher = "The Real News Network"
+        elseif publisher == "unicornriot" then
+            publisher = "Unicorn Riot"
         end
         local entry = string.format(bib_format,
             title, author, publisher, url, month, year)
