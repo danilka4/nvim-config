@@ -3,32 +3,34 @@ local function file_exists(name)
     if f ~= nil then
         io.close(f)
         return true
-    else return false end
+    else
+        return false
+    end
 end
 local function yesterdate(current_date)
-                    local pattern = "(%d%d%d%d)-(%d%d)-(%d%d)"
-                    local year_str, month_str, day_str = string.match(current_date, pattern)
-                    local year = tonumber(year_str)
-                    local month = tonumber(month_str)
-                    local day = tonumber(day_str)
-                    local date_table = {
-                        year = year,
-                        month = month,
-                        day = day,
-                    }
-                    local time = os.time(date_table)
-                    time = time - 24 * 60 * 60
-                    local tries = 0
-                    local max_tries = 200
-                    while not file_exists("/home/lizzy/Documents/theory/daily/" .. os.date("%Y-%m-%d", time) .. ".md") and tries < max_tries do
-                        time = time - 24 * 60 * 60
-                        tries = tries + 1
-                    end
-                    if tries == max_tries then
-                        vim.print("Couldn't find previous date before this many days: " .. max_tries)
-                        return os.date("%Y-%m-%d", os.time() - 24*60*60*20)
-                    end
-                    return os.date("%Y-%m-%d", time)
+    local pattern = "(%d%d%d%d)-(%d%d)-(%d%d)"
+    local year_str, month_str, day_str = string.match(current_date, pattern)
+    local year = tonumber(year_str)
+    local month = tonumber(month_str)
+    local day = tonumber(day_str)
+    local date_table = {
+        year = year,
+        month = month,
+        day = day,
+    }
+    local time = os.time(date_table)
+    time = time - 24 * 60 * 60
+    local tries = 0
+    local max_tries = 200
+    while not file_exists("/home/lizzy/Documents/theory/daily/" .. os.date("%Y-%m-%d", time) .. ".md") and tries < max_tries do
+        time = time - 24 * 60 * 60
+        tries = tries + 1
+    end
+    if tries == max_tries then
+        vim.print("Couldn't find previous date before this many days: " .. max_tries)
+        return os.date("%Y-%m-%d", os.time() - 24 * 60 * 60 * 20)
+    end
+    return os.date("%Y-%m-%d", time)
 end
 
 return {
@@ -76,7 +78,7 @@ return {
         --     use_path_only = true
         -- },
         note_id_func = function(title)
-            return title:lower():gsub("'", "")
+            return title:lower():gsub("'", ""):gsub("-", "")
             --:gsub(" ", "_")
         end,
         -- note_path_func = function(spec)
@@ -128,6 +130,14 @@ return {
                 vim.fn.jobstart({ "xdg-open", url }) -- linux
             end
         end,
+
+        backlinks = {
+            parse_headers = false,
+            include_naked_urls = true,
+            include_tags = true,
+            include_file_urls = true,
+            include_block_ids = true,
+        },
         completion = {
             -- Set to false to disable completion.
             blink = true,
@@ -148,7 +158,7 @@ return {
                     local filename = ctx.destination_path.filename
                     return yesterdate(filename)
                 end,
-                yesterday_text = function (ctx)
+                yesterday_text = function(ctx)
                     local filename = ctx.destination_path.filename
                     local yestername = yesterdate(filename)
                     local pattern = "\\[\\[.*\\]\\]" -- Replace with your actual regex pattern

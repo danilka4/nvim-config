@@ -227,10 +227,16 @@ local bib_format = [[@online{heheheha,
 vim.keymap.set("n", "<Leader>on", function()
     local feed_desc = require("feed").get_entry()
 
+    -- Escapes title
     local title = feed_desc["title"]
+    title = string.format("%q", title)
+    title = string.sub(title, 2, -2) -- take away surrounding quotes
+    -- vim.print(title)
+    local command = 'grep -c "{' .. title .. '}" ~/Documents/theory/sources.bib'
+    -- vim.print(command)
 
     -- Checks for existence
-    local handle = io.popen('grep -c "{' .. title .. '}" ~/Documents/theory/sources.bib')
+    local handle = io.popen(command)
     if handle == nil then
         vim.print("Can't grep for some reason")
         return 1
@@ -274,20 +280,22 @@ vim.keymap.set("n", "<Leader>on", function()
         elseif publisher == "unicornriot" then
             publisher = "Unicorn Riot"
         end
-        local entry = string.format(bib_format,
-            title, author, publisher, url, month, year)
+        local entry = string.format(bib_format, title, author, publisher, url, month, year)
         -- Adds new
         vim.cmd("tabnew")
         vim.cmd("term")
-        vim.api.nvim_feedkeys('iecho "' .. entry .. '" | tha stdin ', "n", false)
+        vim.api.nvim_feedkeys('iecho "' .. entry .. '" | tha stdin ', "n", true)
     else
         -- Must find associated key to file
+        -- vim.print(count_instances)
+        -- vim.print(title)
         local handle_find_key = io.popen('sh title_bibkey.sh "' .. title .. '"')
         if handle_find_key == nil then
             vim.print("Can't find key")
             return 1
         end
         local bib_path = handle_find_key:read("*a")
+        -- vim.print(bib_path)
         vim.cmd("tabnew " .. bib_path)
     end
 end)
