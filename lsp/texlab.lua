@@ -1,5 +1,5 @@
 return {
-    cmd = { 'texlab', '-vvvv' },
+    cmd = { 'texlab' },
     settings = {
         texlab = {
             formatterLineLength = -1,

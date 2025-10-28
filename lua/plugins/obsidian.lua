@@ -90,36 +90,38 @@ return {
         --     local path = spec.dir / title
         --     return path:with_suffix(".md")
         -- end,
-        note_frontmatter_func = function(note)
-            -- Add the title of the note as an alias.
-            -- if note.title then
-            --     note:add_alias(note.title)
-            -- end
+        frontmatter = {
+            func = function(note)
+                -- Add the title of the note as an alias.
+                -- if note.title then
+                --     note:add_alias(note.title)
+                -- end
 
-            -- date_created chooses today if non-existent
-            local out = {
-                id = note.id,
-                aliases = note.aliases,
-                tags = note.tags,
-                date_created = note.date_created or
-                    os.date("%Y-%m-%d")
-            }
+                -- date_created chooses today if non-existent
+                local out = {
+                    id = note.id,
+                    aliases = note.aliases,
+                    tags = note.tags,
+                    date_created = note.date_created or
+                        os.date("%Y-%m-%d")
+                }
 
-            -- Adds a wip tag if doesn't exist
-            if #note.tags == 0 then
-                table.insert(out.tags, "wip")
-            end
-
-            -- `note.metadata` contains any manually added fields in the frontmatter.
-            -- So here we just make sure those fields are kept in the frontmatter.
-            if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
-                for k, v in pairs(note.metadata) do
-                    out[k] = v
+                -- Adds a wip tag if doesn't exist
+                if #note.tags == 0 then
+                    table.insert(out.tags, "wip")
                 end
-            end
 
-            return out
-        end,
+                -- `note.metadata` contains any manually added fields in the frontmatter.
+                -- So here we just make sure those fields are kept in the frontmatter.
+                if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+                    for k, v in pairs(note.metadata) do
+                        out[k] = v
+                    end
+                end
+
+                return out
+            end,
+        },
         follow_url_func = function(url)
             if url:sub(1, 8) == "file:///" then
                 local formatted = url:sub(9, -1)

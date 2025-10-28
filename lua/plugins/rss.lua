@@ -49,8 +49,10 @@ return {
                     -- "https://www.madycast.com/feed", -- This turned into Trans news network below \/
                     "https://rss.beehiiv.com/feeds/ZwjrCnHCyS.xml", -- Trans news network
                     "https://unicornriot.ninja/feed/",
-                    "https://chuangcn.org/feed/",
+                    "https://chuangcn.org/feed/", -- No work :(
                     "https://therealnews.com/author/mel-buer/feed",
+                    -- "https://www.eff.org/rss/updates.xml", -- Electronic Frontier Foundation, but too much
+                    -- "https://www.404media.co/rss" -- Maybe?
                     -- "https://enlacezapatista.ezln.org.mx/feed/",
                 },
                 tea = {
