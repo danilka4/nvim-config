@@ -71,7 +71,7 @@ function SetTexOptions()
         nnoremap <Leader>V :!zathura $(echo %:p \| sed 's/tex$/pdf/')* --fork
         nnoremap <Leader>b :split ~/Documents/theory/sources.bib<cr>
         "inoremap ]] =<Esc>r'a
-        au VimLeave * !latexmk -c %
+        "au VimLeave * !latexmk -c %
         au VimLeave * !rm *.bbl
         au VimLeave * !rm *.xdv
         au VimLeave * !rm *.snm

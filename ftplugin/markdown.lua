@@ -279,6 +279,8 @@ vim.keymap.set("n", "<Leader>on", function()
             publisher = "The Real News Network"
         elseif publisher == "unicornriot" then
             publisher = "Unicorn Riot"
+        elseif publisher == "freeradical" then
+            publisher = "Free Radical"
         end
         local entry = string.format(bib_format, title, author, publisher, url, month, year)
         -- Adds new
