@@ -31,7 +31,8 @@ local function write()
     local file = vim.fn.expand('%')
     if directory == "/home/lizzy/Documents/theory/essays/dissertation" then
         -- vim.print("Test")
-        return { 'latexmk', '-xelatex',
+        return { 'latexmk',
+            '-pdf',
             '-outdir=' .. directory,
             '-aux-directory=/home/lizzy/Documents/theory/essays/dissertation/temp',
             '-gg', -- force rewrite until I can debug it
