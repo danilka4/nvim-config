@@ -15,4 +15,5 @@ ls.add_snippets("tex", {
     s("frame", fmt("\\begin{{frame}}{{{}}}\n\t{}\n\\end{{frame}}", { i(1, "Frame Title"), i(0), })),
     s({trig="cp", snippetType="autosnippet" }, fmt("\\citep[{}]{{{}}} {}", { i(1), i(2), i(0), })),
     s({trig="ct", snippetType="autosnippet"}, fmt("\\citet[{}]{{{}}} {}", { i(1), i(2), i(0), })),
+    s({trig="fig", snippetType="autosnippet"}, fmt("\\begin{{figure}}\n\t\\centering\n\t{}\n\t\\caption{{{}}}\n\t\\label{{fig:{}}}\n\\end{{figure}}", { i(0), i(1), i(2), })),
 })

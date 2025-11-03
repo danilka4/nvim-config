@@ -25,45 +25,33 @@ vim.keymap.set('n', '<Leader>ir', function()
     end
 end)
 
-local function write()
-    local first_line = vim.fn.getline(1)
-    local directory = vim.fn.expand('%:p:h')
-    local file = vim.fn.expand('%')
-    if directory == "/home/lizzy/Documents/theory/essays/dissertation" then
-        -- vim.print("Test")
-        return { 'latexmk',
-            '-pdf',
-            '-outdir=' .. directory,
-            '-aux-directory=/home/lizzy/Documents/theory/essays/dissertation/temp',
-            '-gg', -- force rewrite until I can debug it
-            'main.tex' }
-    elseif first_line == "% xelatex" then
-        return { 'latexmk', '-xelatex', '-outdir=' .. directory, file }
-    else
-        return { 'latexmk', '-pdf', '-shell-escape', '-outdir=' .. directory, file }
-    end
-end
+-- local function write()
+--     local first_line = vim.fn.getline(1)
+--     local directory = vim.fn.expand('%:p:h')
+--     local file = vim.fn.expand('%')
+--     if directory == "/home/lizzy/Documents/theory/essays/dissertation" then
+--         -- vim.print("Test")
+--         return { 'latexmk',
+--             '-pdf',
+--             '-outdir=' .. directory,
+--             '-aux-directory=/home/lizzy/Documents/theory/essays/dissertation/temp',
+--             '-gg', -- force rewrite until I can debug it
+--             'main.tex' }
+--     elseif first_line == "% xelatex" then
+--         return { 'latexmk', '-xelatex', '-outdir=' .. directory, file }
+--     else
+--         return { 'latexmk', '-pdf', '-shell-escape', '-outdir=' .. directory, file }
+--     end
+-- end
+--
+-- vim.keymap.set('n', '<Leader>o', function()
+--     vim.cmd('!' .. table.concat(write(), ' '))
+-- end)
+--
+-- vim.keymap.set('n', '<Leader>O', function()
+--     local tab = write()
+--     table.insert(tab, '-gg')
+--     vim.cmd('!' .. table.concat(tab, ' '))
+-- end)
 
-vim.keymap.set('n', '<Leader>o', function()
-    vim.cmd('!' .. table.concat(write(), ' '))
-end)
-
-vim.keymap.set('n', '<Leader>O', function()
-    local tab = write()
-    table.insert(tab, '-gg')
-    vim.cmd('!' .. table.concat(tab, ' '))
-end)
-
-vim.api.nvim_create_autocmd("BufWritePost", {
-    callback = function()
-        local command_args = write()
-        local command_name = table.remove(command_args, 1)
-        -- vim.uv.kill(420)
-        vim.uv.spawn(command_name, {
-            args = command_args,
-            verbatim = true,
-            -- uid = 4,
-        })
-    end
-})
 vim.g.tex_flavor = "latex"
