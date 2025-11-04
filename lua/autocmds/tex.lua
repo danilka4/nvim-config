@@ -1,6 +1,6 @@
 vim.api.nvim_create_autocmd("VimLeave", {
     -- This autocommand will only trigger if the buffer name matches the following patterns
-    pattern = { "*.tex" },
+    pattern = { "*.tex", "*.md" },
     command = "!pkill latexmk; rm /home/lizzy/Documents/theory/essays/dissertation/temp/* ; latexmk -c ",
     -- The autocommand will trigger the following lua function
 })
