@@ -78,7 +78,7 @@ return {
         --     use_path_only = true
         -- },
         note_id_func = function(title)
-            return title:lower():gsub("'", ""):gsub("-", "")
+            return title:lower():gsub("'", ""):gsub("-", ""):gsub(",", "")
             --:gsub(" ", "_")
         end,
         -- note_path_func = function(spec)
