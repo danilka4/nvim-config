@@ -78,8 +78,14 @@ return {
         --     use_path_only = true
         -- },
         note_id_func = function(title)
-            return title:lower():gsub("'", ""):gsub("-", ""):gsub(",", "")
-            --:gsub(" ", "_")
+            -- vim.print(title)
+            -- vim.print(string.gmatch(title, "%d%d%d%d-%d%d-%d%d"))
+            if string.gmatch(title, "%d%d%d%d-%d%d-%d%d") ~= nil then
+                return title
+            else
+                return title:lower():gsub("'", ""):gsub("-", ""):gsub(",", "")
+                --:gsub(" ", "_")
+            end
         end,
         -- note_path_func = function(spec)
         --     -- This is equivalent to the default behavior.
