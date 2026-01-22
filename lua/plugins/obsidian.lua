@@ -80,12 +80,13 @@ return {
         note_id_func = function(title)
             -- vim.print(title)
             -- vim.print(string.gmatch(title, "%d%d%d%d-%d%d-%d%d"))
-            if string.gmatch(title, "%d%d%d%d-%d%d-%d%d") ~= nil then
-                return title
-            else
-                return title:lower():gsub("'", ""):gsub("-", ""):gsub(",", "")
-                --:gsub(" ", "_")
-            end
+            -- vim.print(string.gmatch(title, "%d%d%d%d-%d%d-%d%d"))
+            return title
+            -- if string.match(title, "%d%d%d%d-%d%d-%d%d") ~= nil then
+            --     return title
+            -- else
+            --     return title:lower():gsub("'", ""):gsub("-", ""):gsub(",", "")
+            -- end
         end,
         -- note_path_func = function(spec)
         --     -- This is equivalent to the default behavior.

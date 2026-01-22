@@ -51,10 +51,12 @@ return {
                     "https://unicornriot.ninja/feed/",
                     "https://chuangcn.org/feed/", -- No work :(
                     "https://therealnews.com/author/mel-buer/feed",
-                    -- "https://www.eff.org/rss/updates.xml", -- Electronic Frontier Foundation, but too much
-                    -- "https://www.404media.co/rss" -- Maybe?
                     -- "https://enlacezapatista.ezln.org.mx/feed/",
                 },
+                -- tech = {
+                --     "https://www.eff.org/rss/updates.xml", -- Electronic Frontier Foundation, but too much
+                --     "https://www.404media.co/rss" -- 404 media 
+                -- },
                 tea = {
                     "https://seventeahouse.com/feed/",
                 }
