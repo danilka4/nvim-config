@@ -129,16 +129,16 @@ return {
                 return out
             end,
         },
-        follow_url_func = function(url)
-            if url:sub(1, 8) == "file:///" then
-                local formatted = url:sub(9, -1)
-                print(formatted)
-                vim.cmd("edit " .. formatted)
-            else
-                print(url)
-                vim.fn.jobstart({ "xdg-open", url }) -- linux
-            end
-        end,
+        -- follow_url_func = function(url)
+        --     if url:sub(1, 8) == "file:///" then
+        --         local formatted = url:sub(9, -1)
+        --         print(formatted)
+        --         vim.cmd("edit " .. formatted)
+        --     else
+        --         print(url)
+        --         vim.fn.jobstart({ "xdg-open", url }) -- linux
+        --     end
+        -- end,
 
         backlinks = {
             parse_headers = false,
@@ -155,7 +155,7 @@ return {
         },
 
         attachments = {
-            img_folder = "images"
+            folder = "images"
         },
 
         templates = {
