@@ -56,6 +56,9 @@ return {
             },
         },
         new_notes_location = "notes_subdir",
+        note = {
+            template = "default",
+        },
         daily_notes = {
             folder = "daily",
             template = "daily",
@@ -155,7 +158,7 @@ return {
         },
 
         attachments = {
-            folder = "images"
+            folder = "images",
         },
 
         templates = {
